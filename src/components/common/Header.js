@@ -1,17 +1,19 @@
 import React from 'react';
+// TODO: figure out if we can / should scrap this dependency
 import { Dropdown } from 'bootstrap';
 
 import { NavLink } from 'react-router-dom';
 import { AboutPage } from '../about/About';
+import brandLogo from '../../assets/g-damage-logo-2.svg';
 
 const Header = () => {
   const activeClassName = 'active';
 
   return (
-    <nav className='navbar navbar-expand-lg navbar-dark bg-primary'>
+    <nav className='navbar navbar-expand-md navbar-dark bg-primary'>
       <div className='container-fluid'>
         <NavLink className='navbar-brand' to='/'>
-          G
+          <img src={brandLogo} min-width='50' alt='g-damage-calc logo' />
         </NavLink>
         <button
           className='navbar-toggler btn'

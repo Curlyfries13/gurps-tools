@@ -28,7 +28,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
-      favicon: 'src/g-damage-logo-2.svg',
+      favicon: 'src/assets/g-damage-logo-2.svg',
     }),
   ],
   module: {
@@ -45,6 +45,10 @@ module.exports = {
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: 'asset/resource',
+      },
+      {
+        test: /\.svg$/,
+        type: 'asset/inline',
       },
     ],
   },
