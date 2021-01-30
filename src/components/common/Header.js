@@ -1,65 +1,52 @@
-import React from 'react';
-// TODO: figure out if we can / should scrap this dependency
-import { Dropdown } from 'bootstrap';
+import React, { useState } from 'react';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+} from 'reactstrap';
 
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 import { AboutPage } from '../about/About';
 import brandLogo from '../../assets/g-damage-logo-2.svg';
 
 const Header = () => {
   const activeClassName = 'active';
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <nav className='navbar navbar-expand-md navbar-dark bg-primary'>
-      <div className='container-fluid'>
-        <NavLink className='navbar-brand' to='/'>
-          <img src={brandLogo} min-width='50' alt='g-damage-calc logo' />
-        </NavLink>
-        <button
-          className='navbar-toggler btn'
-          type='button'
-          data-bs-toggle='collapse'
-          data-bs-target='#navbarOpts'
-          aria-controls='navbarOpts'
-          aria-expanded='false'
-          aria-label='Toggle navigation'
-        >
-          <i className='bi bi-list'></i>
-        </button>
-        <div className='collapse navbar-collapse' id='navbarOpts'>
-          <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
-            <li className='nav-item'>
-              <NavLink
-                className='nav-link'
-                activeClassName={activeClassName}
-                to='/'
-                exact
-              >
-                Home
-              </NavLink>
-            </li>
-            <li className='nav-item'>
-              <NavLink
-                className='nav-link'
-                activeClassName={activeClassName}
-                to='/calc'
-              >
-                Calculator
-              </NavLink>
-            </li>
-            <li className='nav-item'>
-              <NavLink
-                className='nav-link'
-                activeClassName={activeClassName}
-                to='/about'
-              >
-                About
-              </NavLink>
-            </li>
-          </ul>
+    <>
+      <Navbar color='primary' dark expand='md' className='navbar'>
+        <div className='container-fluid'>
+          <NavbarBrand to='/'>
+            <img src={brandLogo} min-width='50' alt='g-damage-calc logo' />
+          </NavbarBrand>
+          <NavbarToggler onClick={toggle} />
+          <Collapse isOpen={isOpen} className='navbar-collapse' navbar>
+            <Nav navbar>
+              <NavItem>
+                <NavLink href='/'>Home</NavLink>
+              </NavItem>
+            </Nav>
+            <Nav navbar>
+              <NavItem>
+                <NavLink href='/calc'>Calc</NavLink>
+              </NavItem>
+            </Nav>
+            <Nav navbar>
+              <NavItem>
+                <NavLink href='/about'>About</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
         </div>
-      </div>
-    </nav>
+      </Navbar>
+    </>
   );
 };
 

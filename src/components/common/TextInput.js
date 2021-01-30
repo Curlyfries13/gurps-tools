@@ -1,11 +1,21 @@
 import React from 'react';
 
-const TextInput = ({ name, id, label, placeholder, value, accLabel }) => {
+const TextInput = ({
+  name,
+  id,
+  label,
+  placeholder,
+  value,
+  active = true,
+  onChange,
+  accLabel,
+  labelClass = '',
+}) => {
   return (
     <div className='float-start'>
       <label
         htmlFor={id ? id : ''}
-        className='form-label d-flex justify-content-center'
+        className={'form-label' + (labelClass ? ' ' + labelClass : '')}
       >
         {label}
       </label>
@@ -14,7 +24,10 @@ const TextInput = ({ name, id, label, placeholder, value, accLabel }) => {
         aria-label={accLabel ? accLabel : label}
         className='form-control'
         id={id ? id : ''}
+        readOnly={!active}
         placeholder={placeholder}
+        value={value}
+        onChange={onChange}
       />
     </div>
   );
