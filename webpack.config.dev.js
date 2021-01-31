@@ -23,9 +23,6 @@ module.exports = {
     https: false,
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.API_URL': JSON.stringify('http://localhost:3001'),
-    }),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       favicon: 'src/assets/g-damage-logo-2.svg',
@@ -34,9 +31,18 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-react',
+              '@babel/preset-typescript',
+            ],
+          },
+        },
       },
       {
         test: /(\.css)$/,
@@ -51,5 +57,8 @@ module.exports = {
         type: 'asset/inline',
       },
     ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
   },
 };
