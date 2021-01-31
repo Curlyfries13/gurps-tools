@@ -1,20 +1,14 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
 import { addArmor, removeArmor } from '../../redux/actions/armorActions';
 
+import { Armor } from '/src/types';
 import TextInput from '../common/TextInput';
 import ArmorForm from './ArmorForm';
 import SummaryDR from './SummaryDR';
 
-const CalcForm = ({
-  armorStack,
-  addArmor,
-  removeArmor,
-  propHP,
-  propCurrHP,
-  propDR,
-}) => {
+const CalcForm = ({armorStack, hp, currHP, summaryDR, addArmor, removeArmor} : Props) => {
   // This is a crude way to generate unique id's. Use the largest known ID as
   // the starting point.
   const [idCount, setIdCount] = useState(
@@ -26,9 +20,9 @@ const CalcForm = ({
   );
 
   // only used for summary DR convenience interaction
-  const [dr, setDR] = useState(propDR ? propDR : 0);
+  const [dr, setDR] = useState(summaryDR ? summaryDR : 0);
 
-  const defaultArmor = {
+  const defaultArmor: Armor = {
     id: idCount,
     name: 'Armor',
     dr: 0,
@@ -37,7 +31,7 @@ const CalcForm = ({
     vulnerabilities: [],
   };
 
-  function handleAddArmor(event) {
+  function handleAddArmor() {
     if (armorStack.length === 0) {
       // Set DR to current DR if initializing stack
       addArmor({ ...defaultArmor, dr });
@@ -78,7 +72,7 @@ const CalcForm = ({
           </button>
         </div>
       </div>
-      {armorStack.map((armor) => {
+      { armorStack.map((armor: Armor) => {
         return (
           <ArmorForm
             key={armor.id}
@@ -91,7 +85,13 @@ const CalcForm = ({
   );
 };
 
-function mapStateToProps(state) {
+interface RootState {
+  armorStack: Array<Armor>;
+  hp: number;
+  currHP: number;
+}
+
+function mapStateToProps(state: RootState) {
   return {
     armorStack: state.armorStack,
     hp: state.hp,
@@ -104,4 +104,15 @@ const mapDispatchToProps = {
   removeArmor,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CalcForm);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type ReduxProps = ConnectedProps<typeof connector>
+
+interface Props extends ReduxProps {
+  hp: number;
+  currHP: number;
+  summaryDR: number;
+};
+
+
+export default connector(CalcForm);

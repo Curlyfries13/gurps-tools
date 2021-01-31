@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, NavLink as RouterNavLink} from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -10,7 +11,7 @@ import {
 } from 'reactstrap';
 
 // import { NavLink } from 'react-router-dom';
-import { AboutPage } from '../about/About';
+import AboutPage from '../about/About';
 import brandLogo from '../../assets/g-damage-logo-2.svg';
 
 const Header = () => {
@@ -20,33 +21,28 @@ const Header = () => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <>
-      <Navbar color='primary' dark expand='md' className='navbar'>
-        <div className='container-fluid'>
-          <NavbarBrand to='/'>
-            <img src={brandLogo} min-width='50' alt='g-damage-calc logo' />
-          </NavbarBrand>
-          <NavbarToggler onClick={toggle} />
-          <Collapse isOpen={isOpen} className='navbar-collapse' navbar>
-            <Nav navbar>
-              <NavItem>
-                <NavLink href='/'>Home</NavLink>
-              </NavItem>
-            </Nav>
-            <Nav navbar>
-              <NavItem>
-                <NavLink href='/calc'>Calc</NavLink>
-              </NavItem>
-            </Nav>
-            <Nav navbar>
-              <NavItem>
-                <NavLink href='/about'>About</NavLink>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </div>
-      </Navbar>
-    </>
+    <Navbar color='primary' dark expand='md' className='navbar'>
+      <div className='container-fluid'>
+        <NavbarBrand to='/'>
+          <img src={brandLogo} min-width='50' alt='g-damage-calc logo' />
+        </NavbarBrand>
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} className='navbar-collapse' navbar>
+          <Nav navbar>
+            <NavItem>
+              <NavLink tag={RouterNavLink} to="/"
+              activeClassName="active" exact>Home</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink tag={RouterNavLink} to="/calc" activeClassName="active">Calc</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink tag={RouterNavLink} to="/about" activeClassName="active">About</NavLink>
+            </NavItem>
+          </Nav>
+        </Collapse>
+      </div>
+    </Navbar>
   );
 };
 
