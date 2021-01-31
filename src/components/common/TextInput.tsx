@@ -1,7 +1,6 @@
 import React from 'react';
 
 const TextInput = ({
-  name,
   id,
   label,
   placeholder,
@@ -10,7 +9,7 @@ const TextInput = ({
   onChange,
   accLabel,
   labelClass = '',
-}) => {
+}: Props) => {
   return (
     <div className='float-start'>
       <label
@@ -32,5 +31,16 @@ const TextInput = ({
     </div>
   );
 };
+
+interface Props {
+  id?: string;
+  label: string;
+  placeholder?: string;
+  value?: any;
+  active?: boolean;
+  onChange?: (event: React.SyntheticEvent) => any;
+  accLabel?: string;
+  labelClass?: string;
+}
 
 export default TextInput;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { RootState } from '/src/redux';
 
 import TextInput from '../common/TextInput';
 
@@ -15,9 +16,7 @@ const SummaryDR = ({ propDR, setPropDR, armorStack }) => {
     event.preventDefault();
     if (isActive) {
       armorIsValid(propDR);
-      const value = event.target.value
-        ? parseInt(event.target.value, 10)
-        : event.target.value;
+      const value = parseInt(event.target.value, 10) || 0;
       setPropDR(value);
     }
   }
@@ -44,7 +43,7 @@ const SummaryDR = ({ propDR, setPropDR, armorStack }) => {
   );
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state: RootState) {
   return {
     armorStack: state.armorStack,
   };

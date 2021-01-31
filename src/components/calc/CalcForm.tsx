@@ -1,23 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
-import { addArmor, removeArmor } from '../../redux/actions/armorActions';
+import { addArmor, removeArmor } from '/src/redux/actions/armorActions';
+import { RootState } from '/src/redux';
 
 import { Armor } from '/src/types';
 import TextInput from '../common/TextInput';
 import ArmorForm from './ArmorForm';
 import SummaryDR from './SummaryDR';
 
-const CalcForm = ({armorStack, hp, currHP, summaryDR, addArmor, removeArmor} : Props) => {
+const CalcForm = ({
+  armorStack,
+  hp,
+  currHP,
+  summaryDR,
+  addArmor,
+  removeArmor,
+}: Props) => {
   // This is a crude way to generate unique id's. Use the largest known ID as
   // the starting point.
   const [idCount, setIdCount] = useState(
     armorStack.length === 0
       ? 0
-      : armorStack.reduce((prev, current) => {
+      : armorStack.reduce((prev: Armor, current: Armor) => {
           return prev.id > current.id ? prev : current;
         }).id
   );
+
+  useEffect(() => {
+    if (armorStack.length > 0) {
+      let value = armorStack.reduce((acc: number, armor: Armor) => {
+        return acc + armor.dr;
+      }, 0);
+      setDR(value);
+    }
+  }, [armorStack]);
 
   // only used for summary DR convenience interaction
   const [dr, setDR] = useState(summaryDR ? summaryDR : 0);
@@ -45,13 +62,12 @@ const CalcForm = ({armorStack, hp, currHP, summaryDR, addArmor, removeArmor} : P
     <div className='container card'>
       <div className='row g-2 m-2'>
         <div className='col-md-4 col-6'>
-          <TextInput name='Name' id='Name' label='Name' accLabel='Name' />
+          <TextInput id='Name' label='Name' accLabel='Name' />
         </div>
       </div>
       <div className='row g-2 m-2 justify-content-center'>
         <div className='col-md-2 col-6'>
           <TextInput
-            name='HP'
             id='HP'
             label='HP'
             labelClass='d-flex justify-content-center'
@@ -72,7 +88,7 @@ const CalcForm = ({armorStack, hp, currHP, summaryDR, addArmor, removeArmor} : P
           </button>
         </div>
       </div>
-      { armorStack.map((armor: Armor) => {
+      {armorStack.map((armor: Armor) => {
         return (
           <ArmorForm
             key={armor.id}
@@ -85,17 +101,16 @@ const CalcForm = ({armorStack, hp, currHP, summaryDR, addArmor, removeArmor} : P
   );
 };
 
-interface RootState {
-  armorStack: Array<Armor>;
+interface OwnProps {
   hp: number;
   currHP: number;
 }
 
-function mapStateToProps(state: RootState) {
+function mapStateToProps(state: RootState, ownProps: OwnProps) {
   return {
     armorStack: state.armorStack,
-    hp: state.hp,
-    currHP: state.currHP,
+    hp: ownProps.hp,
+    currHP: ownProps.currHP,
   };
 }
 
@@ -106,13 +121,10 @@ const mapDispatchToProps = {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-type ReduxProps = ConnectedProps<typeof connector>
+type ReduxProps = ConnectedProps<typeof connector>;
 
 interface Props extends ReduxProps {
-  hp: number;
-  currHP: number;
   summaryDR: number;
-};
-
+}
 
 export default connector(CalcForm);
