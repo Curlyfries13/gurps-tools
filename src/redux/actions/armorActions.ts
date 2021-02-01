@@ -1,4 +1,4 @@
-import { Armor } from '../types';
+import { Armor, MoveDirection } from '../types';
 import * as actionTypes from './actionTypes';
 import { ArmorActionTypes } from './actionTypes';
 
@@ -12,4 +12,11 @@ export function removeArmor(armor: Armor): ArmorActionTypes {
 
 export function updateArmor(armor: Armor): ArmorActionTypes {
   return { type: actionTypes.UPDATE_ARMOR, armor };
+}
+
+export function moveArmor(
+  armor: Armor,
+  direction: MoveDirection
+): ArmorActionTypes {
+  return { type: actionTypes.MOVE_ARMOR, direction, armor };
 }

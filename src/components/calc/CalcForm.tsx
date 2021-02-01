@@ -41,6 +41,7 @@ const CalcForm = ({
 
   const defaultArmor: Armor = {
     id: idCount,
+    order: 0,
     name: 'Armor',
     dr: 0,
     ablative: false,
@@ -51,9 +52,9 @@ const CalcForm = ({
   function handleAddArmor() {
     if (armorStack.length === 0) {
       // Set DR to current DR if initializing stack
-      addArmor({ ...defaultArmor, dr });
+      addArmor({ ...defaultArmor, dr, order: armorStack.length });
     } else {
-      addArmor(defaultArmor);
+      addArmor({ ...defaultArmor, order: armorStack.length });
     }
     setIdCount(idCount + 1);
   }
@@ -88,15 +89,17 @@ const CalcForm = ({
           </button>
         </div>
       </div>
-      {armorStack.map((armor: Armor) => {
-        return (
-          <ArmorForm
-            key={armor.id}
-            armor={armor}
-            removeArmor={removeArmor}
-          ></ArmorForm>
-        );
-      })}
+      {armorStack
+        .sort((a: Armor, b: Armor) => a.order - b.order)
+        .map((armor: Armor) => {
+          return (
+            <ArmorForm
+              key={armor.id}
+              armor={armor}
+              removeArmor={removeArmor}
+            ></ArmorForm>
+          );
+        })}
     </div>
   );
 };
@@ -104,6 +107,7 @@ const CalcForm = ({
 interface OwnProps {
   hp: number;
   currHP: number;
+  summaryDR: number;
 }
 
 function mapStateToProps(state: RootState, ownProps: OwnProps) {
@@ -111,6 +115,7 @@ function mapStateToProps(state: RootState, ownProps: OwnProps) {
     armorStack: state.armorStack,
     hp: ownProps.hp,
     currHP: ownProps.currHP,
+    summaryDR: ownProps.summaryDR,
   };
 }
 
@@ -121,10 +126,6 @@ const mapDispatchToProps = {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-type ReduxProps = ConnectedProps<typeof connector>;
-
-interface Props extends ReduxProps {
-  summaryDR: number;
-}
+type Props = ConnectedProps<typeof connector>;
 
 export default connector(CalcForm);
