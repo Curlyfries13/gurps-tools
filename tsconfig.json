@@ -4,18 +4,24 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "target": "es6",
-    "module": "commonjs",
     "moduleResolution": "node",
     "jsx": "react",
     "outDir": "./build",
-    "rootDir": "./src",
     "strict": true,
+    "typeRoots": ["./src/types", "./node_modules/@types"],
     "noImplicitAny": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "include": [
-    "./src/**/*"
-  ]
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl":"./",
+    "paths":{
+      "/*":["./*"]
+    }
+    },
+    "include": [
+      "**/*.ts", "**/*.tsx"
+    ],
+    "exclude": [
+      "./node_modules"
+    ]
 }
