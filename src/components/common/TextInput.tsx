@@ -9,27 +9,55 @@ const TextInput = ({
   onChange,
   accLabel,
   labelClass = '',
+  inline = false,
 }: Props) => {
-  return (
-    <div className='float-start'>
-      <label
-        htmlFor={id ? id : ''}
-        className={'form-label' + (labelClass ? ' ' + labelClass : '')}
-      >
-        {label}
-      </label>
-      <input
-        type='text'
-        aria-label={accLabel ? accLabel : label}
-        className='form-control'
-        id={id ? id : ''}
-        readOnly={!active}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-      />
-    </div>
-  );
+  if (inline) {
+    return (
+      <div className='row'>
+        <label
+          htmlFor={id ? id : ''}
+          className={
+            'col col-form-label' + (labelClass ? ' ' + labelClass : '')
+          }
+        >
+          {label}
+        </label>
+        <div className='col'>
+          <input
+            type='text'
+            aria-label={accLabel ? accLabel : label}
+            className='form-control'
+            id={id ? id : ''}
+            readOnly={!active}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+          />
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <>
+        <label
+          htmlFor={id ? id : ''}
+          className={'form-label' + (labelClass ? ' ' + labelClass : '')}
+        >
+          {label}
+        </label>
+        <input
+          type='text'
+          aria-label={accLabel ? accLabel : label}
+          className='form-control'
+          id={id ? id : ''}
+          readOnly={!active}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+        />
+      </>
+    );
+  }
 };
 
 interface Props {
@@ -38,9 +66,10 @@ interface Props {
   placeholder?: string;
   value?: any;
   active?: boolean;
-  onChange?: (event: React.SyntheticEvent) => any;
+  onChange?: (event: React.SyntheticEvent) => any | void;
   accLabel?: string;
   labelClass?: string;
+  inline?: boolean;
 }
 
 export default TextInput;

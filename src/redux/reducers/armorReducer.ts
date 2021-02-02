@@ -2,6 +2,7 @@ import { Armor, MoveDirection } from '/src/types';
 import * as actionTypes from '../actions/actionTypes';
 import { ArmorActionTypes } from '../actions/actionTypes';
 import initialState from './initialState';
+import { ensureFound } from '/src/utils/jsUtils';
 
 export default function armorReducer(
   state = initialState.armorStack,
@@ -17,8 +18,11 @@ export default function armorReducer(
         return armor.id === action.armor.id ? action.armor : armor;
       });
     case actionTypes.MOVE_ARMOR:
-      let pivot: Armor = state.find(
-        (armor: Armor) => armor.id === action.armor.id
+      // TODO: wrap up ensureFounds in try catch blocks
+      let pivot: Armor = ensureFound<Armor>(
+        state.find((armor: Armor) => {
+          return armor.id === action.armor.id;
+        })
       );
       let target: Armor = pivot;
 
@@ -28,8 +32,8 @@ export default function armorReducer(
           // invalid move, do nothing
           return state;
         } else {
-          target = state.find(
-            (armor: Armor) => armor.order + 1 === pivot.order
+          target = ensureFound<Armor>(
+            state.find((armor: Armor) => armor.order + 1 === pivot.order)
           );
           target.order += 1;
           pivot.order -= 1;
@@ -38,8 +42,8 @@ export default function armorReducer(
         if (pivot.order === state.length - 1) {
           return state;
         } else {
-          target = state.find(
-            (armor: Armor) => armor.order - 1 === pivot.order
+          target = ensureFound<Armor>(
+            state.find((armor: Armor) => armor.order - 1 === pivot.order)
           );
           target.order -= 1;
           pivot.order += 1;

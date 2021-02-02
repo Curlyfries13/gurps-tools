@@ -1,4 +1,4 @@
-import { Armor, MoveDirection } from '../types';
+import { Armor, MoveDirection } from 'src/types';
 
 export const CREATE_ARMOR = 'CREATE_ARMOR';
 export const UPDATE_ARMOR = 'UPDATE_ARMOR';

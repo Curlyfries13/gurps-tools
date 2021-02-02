@@ -3,18 +3,48 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Collapse } from 'reactstrap';
 
 import { Armor, MoveDirection } from '/src/types';
-import { moveArmor } from '/src/redux/actions/armorActions';
+import { moveArmor, updateArmor } from '/src/redux/actions/armorActions';
 import { RootState } from '/src/redux';
 
+import TextInput from '../common/TextInput';
 import DRField from './DRField';
+import AblateField from './AblateField';
 
-const ArmorForm = ({ armor, removeArmor, moveArmor }: Props) => {
+const ArmorForm = ({
+  armor,
+  removeArmor,
+  moveArmor,
+  updateArmor,
+  armorStack,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
 
   const handleMove = (direction: MoveDirection) => {
     moveArmor(armor, direction);
   };
+
+  const handleAblateToggle = () => {
+    updateArmor({ ...armor, ablative: !armor.ablative });
+  };
+
+  function handleAblateBaseUpdate(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    const { name, value } = event.target;
+    const base: number = parseInt(value, 10) || 0;
+    const updatedArmor: Armor = { ...armor, ablateBase: base };
+    updateArmor(updatedArmor);
+  }
+
+  function handleNameUpdate(event: React.ChangeEvent<HTMLInputElement>): void {
+    const { name, value } = event.target;
+    const updatedArmor: Armor = { ...armor };
+    updatedArmor.name = value;
+    updateArmor(updatedArmor);
+  }
+
+  const switchId = armor.id + '-ablative';
 
   return (
     <div className='container mb-2 card card-body'>
@@ -34,14 +64,45 @@ const ArmorForm = ({ armor, removeArmor, moveArmor }: Props) => {
           </button>
         </div>
       </div>
-      <Collapse className='row mb-2' isOpen={isOpen}>
-        <DRField armorId={armor.id} />
+      <Collapse
+        className='row md-flex justify-content-between b-2 mb-3'
+        isOpen={isOpen}
+      >
+        <div className='col col-6'>
+          <TextInput
+            id={armor.id + '-name'}
+            label='Name'
+            value={armor.name}
+            onChange={handleNameUpdate}
+          />
+          <DRField armorId={armor.id} />
+        </div>
+        <div className='col col-6'>
+          <div className='row mb-1'>
+            <div className='form-check form-switch'>
+              <input
+                className='form-check-input'
+                onChange={() => handleAblateToggle()}
+                checked={armor.ablative}
+                type='checkbox'
+                id={switchId}
+              />
+              <label className='form-check-label' htmlFor={switchId}>
+                Ablative
+              </label>
+            </div>
+          </div>
+          <Collapse className='row mb-1' isOpen={armor.ablative}>
+            <AblateField armorId={armor.id} />
+          </Collapse>
+        </div>
       </Collapse>
       <div className='row d-flex mb-1 g-4 justify-content-center'>
         <div className='d-grid col col-2'>
           <button
             className='btn btn-outline-secondary'
             onClick={() => handleMove(MoveDirection.DOWN)}
+            disabled={armorStack.length === 1}
           >
             <i className='bi bi-caret-down-fill' />
           </button>
@@ -50,6 +111,7 @@ const ArmorForm = ({ armor, removeArmor, moveArmor }: Props) => {
           <button
             className='btn btn-outline-secondary'
             onClick={() => handleMove(MoveDirection.UP)}
+            disabled={armorStack.length === 1}
           >
             <i className='bi bi-caret-up-fill' />
           </button>
@@ -66,7 +128,7 @@ interface OwnProps {
 
 function mapStateToProps(state: RootState, ownProps: OwnProps) {
   return {
-    ...state,
+    armorStack: state.armorStack,
     armor: ownProps.armor,
     removeArmor: ownProps.removeArmor,
   };
@@ -74,10 +136,11 @@ function mapStateToProps(state: RootState, ownProps: OwnProps) {
 
 const mapDispatchToProps = {
   moveArmor,
+  updateArmor,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-type Props = ConnectedProps<typeof connector>;
+type Props = ConnectedProps<typeof connector> & OwnProps;
 
 export default connector(ArmorForm);

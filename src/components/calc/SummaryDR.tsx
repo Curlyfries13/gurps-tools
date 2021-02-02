@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { RootState } from '/src/redux';
+import { RootState } from 'src/redux';
 
 import TextInput from '../common/TextInput';
 

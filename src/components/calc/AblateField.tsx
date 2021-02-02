@@ -6,35 +6,50 @@ import { RootState } from '/src/redux/reducers';
 
 import { Armor } from '/src/types';
 import { ensureFound } from '/src/utils/jsUtils';
-import TextInput from '../common/TextInput';
 
-const DRField = ({ armorId, armor, updateArmor }: Props) => {
+const AblateField = ({ armorId, armor, updateArmor }: Props) => {
+  // TODO: wire up vlaidation and errors
   const [errors, setErrors]: [any, Function] = useState({});
+  const [warn, setWarn]: [any, Function] = useState({});
+  const id: string = armorId + '-ablateBase';
 
   function handleValueChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const { name, value } = event.target;
-    const dr: number = parseInt(value, 10) || 0;
-    const updatedArmor: Armor = { ...armor, dr };
+    const base: number = parseInt(value, 10) || 0;
+    const updatedArmor: Armor = { ...armor, ablateBase: base };
     updateArmor(updatedArmor);
   }
 
   // TODO: wire up vlaidation
-  function armorIsValid(armor: Armor) {
+  function ablateIsValid(armor: Armor) {
     const errors: any = {};
-    if (!(armor.dr >= 0)) errors.dr = 'DR must be a non-negative value';
+    const warn: any = {};
+    if (!(armor.ablateBase >= 0))
+      errors.ablateBase = 'Ablate Base must be a positive value';
+    if (!(armor.ablateBase == 0))
+      warn.zero = 'Ablate Base should be a positive value';
     setErrors(errors);
+    setWarn(warn);
     return Object.keys(errors).length === 0;
   }
 
   // TODO: update accessibility label to update with
   return (
-    <TextInput
-      value={armor.dr}
-      onChange={handleValueChange}
-      label='DR'
-      labelClass='d-flex justify-content-center'
-      accLabel='Damage Resistence'
-    />
+    <div className='row'>
+      <label htmlFor={id} className='col col-form-label'>
+        Ablate Base
+      </label>
+      <div className='col'>
+        <input
+          type='number'
+          aria-label="this armor's ablative base"
+          className='form-control'
+          id={id}
+          value={armor.ablateBase}
+          onChange={handleValueChange}
+        />
+      </div>
+    </div>
   );
 };
 
@@ -61,4 +76,4 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type Props = ConnectedProps<typeof connector> & OwnProps;
 
-export default connector(DRField);
+export default connector(AblateField);

@@ -1,4 +1,4 @@
-import { Armor, MoveDirection } from '../types';
+import { Armor, MoveDirection } from 'src/types';
 import * as actionTypes from './actionTypes';
 import { ArmorActionTypes } from './actionTypes';
 
