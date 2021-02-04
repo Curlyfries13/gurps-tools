@@ -14,7 +14,7 @@ const AblateField = ({ armorId, armor, updateArmor }: Props) => {
   const id: string = armorId + '-ablateBase';
 
   function handleValueChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    const { name, value } = event.target;
+    const { value } = event.target;
     const base: number = parseInt(value, 10) || 0;
     const updatedArmor: Armor = { ...armor, ablateBase: base };
     updateArmor(updatedArmor);
@@ -41,7 +41,6 @@ const AblateField = ({ armorId, armor, updateArmor }: Props) => {
       </label>
       <div className='col'>
         <input
-          type='number'
           aria-label="this armor's ablative base"
           className='form-control'
           id={id}
