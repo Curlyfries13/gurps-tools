@@ -39,6 +39,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-immutable-state-invariant": "^2.1.0",
     "rimraf": "^3.0.2",
+    "safe-regex": "^2.1.1",
     "source-map-loader": "^2.0.0",
     "style-loader": "^2.0.0",
     "ts-loader": "^8.0.14",

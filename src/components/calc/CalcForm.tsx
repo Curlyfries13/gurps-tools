@@ -8,6 +8,7 @@ import { Armor } from '/src/types';
 import TextInput from '../common/TextInput';
 import ArmorForm from './ArmorForm';
 import SummaryDR from './SummaryDR';
+import DamageTray from './DamageTray';
 
 const CalcForm = ({
   armorStack,
@@ -100,6 +101,9 @@ const CalcForm = ({
             ></ArmorForm>
           );
         })}
+      <div className='card-body'>
+        <DamageTray />
+      </div>
     </div>
   );
 };
