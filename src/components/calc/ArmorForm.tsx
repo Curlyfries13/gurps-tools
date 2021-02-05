@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Collapse } from 'reactstrap';
+import { Subject } from 'rxjs';
 
 import { Armor, MoveDirection } from '/src/types';
 import { moveArmor, updateArmor } from '/src/redux/actions/armorActions';
@@ -13,11 +14,24 @@ import AblateField from './AblateField';
 const ArmorForm = ({
   armor,
   removeArmor,
+  collapse,
   moveArmor,
   updateArmor,
   armorStack,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(true);
+
+  useEffect(() => {
+    collapse.asObservable().subscribe({
+      next: () => {
+        setIsOpen(false);
+      },
+    });
+    return function cleanup() {
+      collapse.unsubscribe();
+    };
+  }, [collapse]);
+
   const toggle = () => setIsOpen(!isOpen);
 
   const handleMove = (direction: MoveDirection) => {
@@ -124,6 +138,7 @@ const ArmorForm = ({
 interface OwnProps {
   armor: Armor;
   removeArmor: Function;
+  collapse: Subject<void>;
 }
 
 function mapStateToProps(state: RootState, ownProps: OwnProps) {

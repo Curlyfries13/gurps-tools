@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
+import { Subject } from 'rxjs';
 
 import { addArmor, removeArmor } from '/src/redux/actions/armorActions';
 import { RootState } from '/src/redux';
@@ -36,6 +37,12 @@ const CalcForm = ({
       setDR(value);
     }
   }, [armorStack]);
+
+  const collapseSubject = new Subject<void>();
+
+  const handleCollapse = () => {
+    collapseSubject.next();
+  };
 
   // only used for summary DR convenience interaction
   const [dr, setDR] = useState(summaryDR ? summaryDR : 0);
@@ -80,13 +87,22 @@ const CalcForm = ({
           <SummaryDR propDR={dr} setPropDR={setDR} />
         </div>
       </div>
-      <div className='row g-2 m-2'>
-        <div className='col-md-1 col-3'>
+      <div className='row g-2 mb-2'>
+        <div className='col-md-1 col-3 mx-1'>
           <button
             className='btn btn-outline-success'
             onClick={() => handleAddArmor()}
           >
             <i className='fs-3 d-flex align-items-top bi bi-shield-fill-plus'></i>
+          </button>
+        </div>
+        <div className='col-md-4 col-3 mx-1'>
+          <button
+            className='btn btn-outline-primary'
+            onClick={() => handleCollapse()}
+            disabled={armorStack.length === 0}
+          >
+            Collapse All
           </button>
         </div>
       </div>
@@ -98,6 +114,7 @@ const CalcForm = ({
               key={armor.id}
               armor={armor}
               removeArmor={removeArmor}
+              collapse={collapseSubject}
             ></ArmorForm>
           );
         })}

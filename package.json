@@ -64,7 +64,8 @@
     "react-router-dom": "^5.2.0",
     "react-thunk": "^1.0.0",
     "react-transition-group": "^4.4.1",
-    "reactstrap": "^8.9.0"
+    "reactstrap": "^8.9.0",
+    "rxjs": "^6.6.3"
   },
   "babel": {
     "presets": [
