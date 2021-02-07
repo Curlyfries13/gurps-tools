@@ -17,12 +17,14 @@ export default function damageReducer(
         .forEach((armor: Armor) => {
           if (damage > armor.dr) {
             damage = damage - armor.dr;
+          } else {
+            damage = 0;
           }
         });
       if (damage > 0) {
         outHp -= damage;
       }
-      return { ...state, currHp: outHp };
+      return { ...state, currHp: outHp, displayCurrHP: outHp };
     case actionTypes.UPDATE_DAMAGE_EXPRESSION:
       return { ...state, damageExpression: action.value };
     case actionTypes.UPDATE_EXPRESSION_VALID:

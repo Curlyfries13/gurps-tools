@@ -12,7 +12,6 @@ export function rollDamage(value: string): DamageActionTypes {
   const [, mult, sides, mod] = match;
   if (match === null) {
     // invalid dice format, do nothing
-    debugger;
     return { type: actionTypes.ROLL_DAMAGE };
   }
   let multNum, sidesNum, modNum;
@@ -23,16 +22,17 @@ export function rollDamage(value: string): DamageActionTypes {
   if (sides) {
     sidesNum = parseInt(sides, 10);
   } else sidesNum = 6;
-  if (mod) {
-    // TODO: issue on +/-
-    modNum = parseInt(mod, 10);
+  if (mod && mod[0] === '+') {
+    modNum = parseInt(mod.slice(1), 10);
+  } else if (mod && mod[0] === '-') {
+    modNum = parseInt(mod.slice(1), 10) * -1;
   } else modNum = 0;
 
   // could start with mod...
   let out = 0;
 
   for (; multNum > 0; multNum--) {
-    out += getRandomInt(sidesNum + 1);
+    out += getRandomInt(sidesNum) + 1;
   }
   out += modNum;
 
