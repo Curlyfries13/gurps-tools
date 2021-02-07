@@ -11,6 +11,7 @@ import TextInput from '../common/TextInput';
 import ArmorForm from './ArmorForm';
 import SummaryDR from './SummaryDR';
 import DamageTray from './DamageTray';
+import HPField from './HPField';
 
 const CalcForm = ({
   armorStack,
@@ -69,11 +70,6 @@ const CalcForm = ({
     setIdCount(idCount + 1);
   }
 
-  function handleUpdateHP(event: React.ChangeEvent<HTMLInputElement>): void {
-    const { value } = event.target;
-    updateDisplayHP(value);
-  }
-
   return (
     <div className='container card'>
       <div className='row g-2 m-2'>
@@ -82,17 +78,10 @@ const CalcForm = ({
         </div>
       </div>
       <div className='row g-2 m-2 justify-content-center'>
-        <div className='col-md-2 col-6'>
-          <TextInput
-            id='HP'
-            label='HP'
-            labelClass='d-flex justify-content-center'
-            accLabel='Hit Points'
-            value={hp}
-            onChange={handleUpdateHP}
-          />
+        <div className='col-md-4 col-6'>
+          <HPField />
         </div>
-        <div className='col-md-2 col-6 '>
+        <div className='col-md-4 col-6'>
           <SummaryDR propDR={dr} setPropDR={setDR} />
         </div>
       </div>
@@ -138,8 +127,6 @@ interface OwnProps {
 function mapStateToProps(state: RootState, ownProps: OwnProps) {
   return {
     armorStack: state.armorStack,
-    hp: state.displayHP,
-    currHP: state.currHp,
     summaryDR: ownProps.summaryDR,
   };
 }

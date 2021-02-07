@@ -14,6 +14,12 @@ export default function characterReducer(
     case actionTypes.DAMAGE_HP:
       const outHP: number = state.currHp - action.value;
       return { ...state, currHp: outHP };
+    case actionTypes.UPDATE_DISPLAY_CURR_HP:
+      return { ...state, displayCurrHP: action.value };
+    case actionTypes.UPDATE_CURR_HP:
+      return { ...state, currHp: action.value };
+    case actionTypes.RESET_HP:
+      return { ...state, currHp: state.hp, displayCurrHP: state.hp };
     default:
       return state;
   }
