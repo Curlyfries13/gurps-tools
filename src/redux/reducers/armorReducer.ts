@@ -13,9 +13,12 @@ export default function armorReducer(
       const armorStack = [...state.armorStack, action.armor];
       return { ...state, armorStack: armorStack };
     case actionTypes.DELETE_ARMOR:
-      return state.armorStack.filter(
-        (armor: Armor) => armor.id !== action.armor.id
-      );
+      return {
+        ...state,
+        armorStack: state.armorStack.filter(
+          (armor: Armor) => armor.id !== action.armor.id
+        ),
+      };
     case actionTypes.UPDATE_ARMOR:
       return {
         ...state,
