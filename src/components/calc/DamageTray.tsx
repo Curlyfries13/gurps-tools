@@ -49,9 +49,9 @@ const DamageTray = ({
 
 function mapStateToProps(state: RootState) {
   return {
-    diceMode: state.damage.diceMode,
-    expression: state.damage.damageExpression,
-    expressionIsValid: state.damage.expressionIsValid,
+    diceMode: state.diceMode,
+    expression: state.damageExpression,
+    expressionIsValid: state.expressionIsValid,
   };
 }
 

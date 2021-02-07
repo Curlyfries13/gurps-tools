@@ -5,22 +5,28 @@ import initialState from './initialState';
 import { ensureFound } from '/src/utils/jsUtils';
 
 export default function armorReducer(
-  state = initialState.armorStack,
+  state = initialState,
   action: ArmorActionTypes
 ) {
   switch (action.type) {
     case actionTypes.CREATE_ARMOR:
-      return [...state, { ...action.armor }];
+      const armorStack = [...state.armorStack, action.armor];
+      return { ...state, armorStack: armorStack };
     case actionTypes.DELETE_ARMOR:
-      return state.filter((armor: Armor) => armor.id !== action.armor.id);
+      return state.armorStack.filter(
+        (armor: Armor) => armor.id !== action.armor.id
+      );
     case actionTypes.UPDATE_ARMOR:
-      return state.map((armor: Armor) => {
-        return armor.id === action.armor.id ? action.armor : armor;
-      });
+      return {
+        ...state,
+        armorStack: state.armorStack.map((armor: Armor) => {
+          return armor.id === action.armor.id ? action.armor : armor;
+        }),
+      };
     case actionTypes.MOVE_ARMOR:
       // TODO: wrap up ensureFounds in try catch blocks
       let pivot: Armor = ensureFound<Armor>(
-        state.find((armor: Armor) => {
+        state.armorStack.find((armor: Armor) => {
           return armor.id === action.armor.id;
         })
       );
@@ -33,23 +39,27 @@ export default function armorReducer(
           return state;
         } else {
           target = ensureFound<Armor>(
-            state.find((armor: Armor) => armor.order + 1 === pivot.order)
+            state.armorStack.find(
+              (armor: Armor) => armor.order + 1 === pivot.order
+            )
           );
           target.order += 1;
           pivot.order -= 1;
         }
       } else if (action.direction === MoveDirection.DOWN) {
-        if (pivot.order === state.length - 1) {
+        if (pivot.order === state.armorStack.length - 1) {
           return state;
         } else {
           target = ensureFound<Armor>(
-            state.find((armor: Armor) => armor.order - 1 === pivot.order)
+            state.armorStack.find(
+              (armor: Armor) => armor.order - 1 === pivot.order
+            )
           );
           target.order -= 1;
           pivot.order += 1;
         }
       }
-      let outState = state
+      let outState = state.armorStack
         .map((armor: Armor) => {
           if (armor.id === pivot.id) {
             return pivot;
@@ -62,7 +72,7 @@ export default function armorReducer(
         .sort((a: Armor, b: Armor) => {
           return a.order - b.order;
         });
-      return outState;
+      return { ...state, armorStack: outState };
     default:
       return state;
   }

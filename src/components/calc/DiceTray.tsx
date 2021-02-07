@@ -7,7 +7,8 @@ import {
   setValidExpression,
   setDiceMode,
 } from '/src/redux/actions/damageActions';
-import { basicPattern as pattern } from '/src/utils/diceUtils';
+import { basicPattern as dicePattern } from '/src/utils/diceUtils';
+import { numberPattern } from '/src/utils/jsUtils';
 
 // Consider if we want to move this out into Redux
 
@@ -26,10 +27,10 @@ const DiceTray = ({
     const { value } = event.target;
     let outVal: number = parseInt(value, 10);
     setExpression(value);
-    if (!isNaN(outVal) && outVal >= 0) {
+    if (value.match(numberPattern) !== null && outVal >= 0) {
       setDiceMode(false);
       setValidExpression(true);
-    } else if (value.match(pattern) !== null) {
+    } else if (value.match(dicePattern) !== null) {
       setDiceMode(true);
       setValidExpression(true);
     } else {
@@ -62,8 +63,8 @@ const DiceTray = ({
 
 function mapStateToProps(state: RootState) {
   return {
-    expression: state.damage.damageExpression,
-    expressionIsValid: state.damage.expressionIsValid,
+    expression: state.damageExpression,
+    expressionIsValid: state.expressionIsValid,
   };
 }
 

@@ -7,6 +7,7 @@ export const MOVE_ARMOR = 'MOVE_ARMOR';
 export const UPDATE_DR = 'UPDATE_DR';
 export const DAMAGE_DR = 'DAMAGE_DR';
 
+export const UPDATE_DISPLAY_HP = 'UPDATE_DISPLAY_HP';
 export const UPDATE_HP = 'UPDATE_HP';
 export const DAMAGE_HP = 'DAMAGE_HP';
 
@@ -50,6 +51,21 @@ interface DamageDRAction {
   value: number;
 }
 
+interface UpdateDisplayHPAction {
+  type: typeof UPDATE_DISPLAY_HP;
+  value: string;
+}
+
+interface UpdateHPAction {
+  type: typeof UPDATE_HP;
+  value: number;
+}
+
+interface DamageHPAction {
+  type: typeof DAMAGE_HP;
+  value: number;
+}
+
 interface RollDamageAction {
   type: typeof ROLL_DAMAGE;
 }
@@ -86,3 +102,8 @@ export type DamageActionTypes =
   | UpdateDamageExpressionAction
   | UpdateExpressionValidAction
   | UpdateDiceModeAction;
+
+export type CharacterActionTypes =
+  | UpdateDisplayHPAction
+  | UpdateHPAction
+  | DamageHPAction;

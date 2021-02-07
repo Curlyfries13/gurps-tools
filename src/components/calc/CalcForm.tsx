@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Subject } from 'rxjs';
 
 import { addArmor, removeArmor } from '/src/redux/actions/armorActions';
+import { updateDisplayHP } from '/src/redux/actions/characterActions';
 import { RootState } from '/src/redux';
 
 import { Armor } from '/src/types';
@@ -18,6 +19,7 @@ const CalcForm = ({
   summaryDR,
   addArmor,
   removeArmor,
+  updateDisplayHP,
 }: Props) => {
   // This is a crude way to generate unique id's. Use the largest known ID as
   // the starting point.
@@ -67,6 +69,11 @@ const CalcForm = ({
     setIdCount(idCount + 1);
   }
 
+  function handleUpdateHP(event: React.ChangeEvent<HTMLInputElement>): void {
+    const { value } = event.target;
+    updateDisplayHP(value);
+  }
+
   return (
     <div className='container card'>
       <div className='row g-2 m-2'>
@@ -81,6 +88,8 @@ const CalcForm = ({
             label='HP'
             labelClass='d-flex justify-content-center'
             accLabel='Hit Points'
+            value={hp}
+            onChange={handleUpdateHP}
           />
         </div>
         <div className='col-md-2 col-6 '>
@@ -89,17 +98,14 @@ const CalcForm = ({
       </div>
       <div className='row g-2 mb-2'>
         <div className='col-md-1 col-3 mx-1'>
-          <button
-            className='btn btn-outline-success'
-            onClick={() => handleAddArmor()}
-          >
+          <button className='btn btn-outline-success' onClick={handleAddArmor}>
             <i className='fs-3 d-flex align-items-top bi bi-shield-fill-plus'></i>
           </button>
         </div>
         <div className='col-md-4 col-3 mx-1'>
           <button
             className='btn btn-outline-primary'
-            onClick={() => handleCollapse()}
+            onClick={handleCollapse}
             disabled={armorStack.length === 0}
           >
             Collapse All
@@ -126,16 +132,14 @@ const CalcForm = ({
 };
 
 interface OwnProps {
-  hp: number;
-  currHP: number;
   summaryDR: number;
 }
 
 function mapStateToProps(state: RootState, ownProps: OwnProps) {
   return {
     armorStack: state.armorStack,
-    hp: ownProps.hp,
-    currHP: ownProps.currHP,
+    hp: state.displayHP,
+    currHP: state.currHp,
     summaryDR: ownProps.summaryDR,
   };
 }
@@ -143,6 +147,7 @@ function mapStateToProps(state: RootState, ownProps: OwnProps) {
 const mapDispatchToProps = {
   addArmor,
   removeArmor,
+  updateDisplayHP,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
