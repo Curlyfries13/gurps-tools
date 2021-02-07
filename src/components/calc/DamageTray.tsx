@@ -15,10 +15,8 @@ const DamageTray = ({
 }: Props) => {
   const handleDamage = () => {
     if (expressionIsValid && diceMode) {
-      debugger;
       rollDamage(expression);
     } else if (expressionIsValid) {
-      debugger;
       applyDamage(parseInt(expression, 10) || 0);
     }
   };
