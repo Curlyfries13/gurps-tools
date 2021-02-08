@@ -3,7 +3,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Subject } from 'rxjs';
 
 import { addArmor, removeArmor } from '/src/redux/actions/armorActions';
-import { updateDisplayHP } from '/src/redux/actions/characterActions';
+import { resetHP } from '/src/redux/actions/characterActions';
 import { RootState } from '/src/redux';
 
 import { Armor } from '/src/types';
@@ -20,7 +20,7 @@ const CalcForm = ({
   summaryDR,
   addArmor,
   removeArmor,
-  updateDisplayHP,
+  resetHP,
 }: Props) => {
   // This is a crude way to generate unique id's. Use the largest known ID as
   // the starting point.
@@ -70,6 +70,10 @@ const CalcForm = ({
     setIdCount(idCount + 1);
   }
 
+  function handleReset() {
+    resetHP();
+  }
+
   return (
     <div className='container card'>
       <div className='row g-2 m-2'>
@@ -86,20 +90,27 @@ const CalcForm = ({
         </div>
       </div>
       <div className='row g-2 mb-2'>
-        <div className='col-md-1 col-3 mx-1'>
+        <div className='col-md-1 col-2 mx-1'>
           <button className='btn btn-outline-success' onClick={handleAddArmor}>
             <i className='fs-3 d-flex align-items-top bi bi-shield-fill-plus'></i>
           </button>
         </div>
-        <div className='col-md-4 col-3 mx-1'>
+        <div className='col mx-1'>
           <button
-            className='btn btn-outline-primary'
+            className='btn btn-outline-primary mx-1'
             onClick={handleCollapse}
             disabled={armorStack.length === 0}
           >
             Collapse All
           </button>
+          <button
+            className='btn btn-outline-primary mx-1'
+            onClick={handleReset}
+          >
+            Reset
+          </button>
         </div>
+        <div className='col-md-4 col-4 mx-1'></div>
       </div>
       {armorStack
         .sort((a: Armor, b: Armor) => a.order - b.order)
@@ -134,7 +145,7 @@ function mapStateToProps(state: RootState, ownProps: OwnProps) {
 const mapDispatchToProps = {
   addArmor,
   removeArmor,
-  updateDisplayHP,
+  resetHP,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
