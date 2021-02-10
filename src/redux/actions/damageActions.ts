@@ -2,19 +2,28 @@ import store from '/src/redux';
 
 import * as actionTypes from './actionTypes';
 import { DamageActionTypes } from './actionTypes';
+import {
+  LogRollAction,
+  LogArmorDamage,
+  LogHealthDamageAction,
+  LogEntryAction,
+} from './logActions';
+import { damageHP } from './characterActions';
 
 import { basicPattern as pattern } from '/src/utils/diceUtils';
 import { ensureFound, getRandomInt } from '/src/utils/jsUtils';
+import { Armor } from '/src/types';
 
 // call this with a dice expression
-export function rollDamage(value: string): DamageActionTypes {
+export function rollDamage(value: string): DamageActionTypes | void {
   const match = ensureFound<RegExpMatchArray>(value.match(pattern));
   const [, mult, sides, mod] = match;
   if (match === null) {
     // invalid dice format, do nothing
-    return { type: actionTypes.ROLL_DAMAGE };
+    return;
   }
   let multNum, sidesNum, modNum;
+  let results: number[] = [];
 
   if (mult) {
     multNum = parseInt(mult, 10);
@@ -29,19 +38,41 @@ export function rollDamage(value: string): DamageActionTypes {
   } else modNum = 0;
 
   // could start with mod...
+  // Main dice rolling logic
   let out = 0;
 
   for (; multNum > 0; multNum--) {
-    out += getRandomInt(sidesNum) + 1;
+    let result = getRandomInt(sidesNum) + 1;
+    out += result;
+    results.push(result);
   }
   out += modNum;
+  store.dispatch(LogRollAction(value, out, results, sidesNum));
 
-  store.dispatch({ type: actionTypes.APPLY_DAMAGE, value: out });
-  return { type: actionTypes.ROLL_DAMAGE };
+  store.dispatch(applyDamage(out));
+  store.dispatch(LogEntryAction());
+  return { type: actionTypes.ROLL_DAMAGE, roll: results };
 }
 
-export function applyDamage(value: number): DamageActionTypes {
-  return { type: actionTypes.APPLY_DAMAGE, value };
+export function applyDamage(damage: number): DamageActionTypes {
+  // main damage logic
+  store
+    .getState()
+    .armorStack.sort((a: Armor, b: Armor) => a.order - b.order)
+    .forEach((armor: Armor) => {
+      if (damage > armor.dr) {
+        let blowthrough = damage - armor.dr;
+        store.dispatch(LogArmorDamage(armor, damage, blowthrough));
+        damage = blowthrough;
+      } else {
+        damage = 0;
+      }
+    });
+  if (damage > 0) {
+    store.dispatch(damageHP(damage));
+    store.dispatch(LogHealthDamageAction(damage));
+  }
+  return { type: actionTypes.APPLY_DAMAGE, value: damage };
 }
 
 export function setValidExpression(value: boolean): DamageActionTypes {

@@ -14,12 +14,17 @@ export const UPDATE_CURR_HP = 'UPDATE_CURR_HP';
 export const DAMAGE_HP = 'DAMAGE_HP';
 export const RESET_HP = 'RESET_HP';
 
-export const ROLL_DAMAGE = 'ROLL_DAMAGE';
-export const APPLY_DAMAGE = 'APPLY_DAMAGE';
+export const APPEND_LOG_ENTRY = 'APPEND_LOG_ENTRY';
+export const COMMIT_LOG_ENTRY = 'LOG_ENTRY';
+
 // may want to split out into dice actions
 export const UPDATE_DAMAGE_EXPRESSION = 'UPDATE_DAMAGE_EXPRESSION';
 export const UPDATE_EXPRESSION_VALID = 'UPDATE_EXPRESSION_VALID';
 export const UPDATE_DICE_MODE = 'UPDATE_DICE_MODE';
+
+// status only actions
+export const ROLL_DAMAGE = 'ROLL_DAMAGE';
+export const APPLY_DAMAGE = 'APPLY_DAMAGE';
 
 interface CreateArmorAction {
   type: typeof CREATE_ARMOR;
@@ -83,8 +88,13 @@ interface ResetHPAction {
   type: typeof RESET_HP;
 }
 
-interface RollDamageAction {
-  type: typeof ROLL_DAMAGE;
+interface AppendLogEntryAction {
+  type: typeof APPEND_LOG_ENTRY;
+  message: string;
+}
+
+interface CommitLogEntryAction {
+  type: typeof COMMIT_LOG_ENTRY;
 }
 
 interface ApplyDamageAction {
@@ -107,6 +117,16 @@ interface UpdateDiceModeAction {
   value: boolean;
 }
 
+interface RollDamageAction {
+  type: typeof ROLL_DAMAGE;
+  roll: number[];
+}
+
+interface ApplyDamageAction {
+  type: typeof APPLY_DAMAGE;
+  value: number;
+}
+
 export type ArmorActionTypes =
   | CreateArmorAction
   | DeleteArmorAction
@@ -114,11 +134,12 @@ export type ArmorActionTypes =
   | MoveArmorAction;
 
 export type DamageActionTypes =
-  | RollDamageAction
   | ApplyDamageAction
   | UpdateDamageExpressionAction
   | UpdateExpressionValidAction
-  | UpdateDiceModeAction;
+  | UpdateDiceModeAction
+  | RollDamageAction
+  | ApplyDamageAction;
 
 export type CharacterActionTypes =
   | UpdateDisplayHPAction
@@ -127,3 +148,5 @@ export type CharacterActionTypes =
   | UpdateDisplayCurrentHPAction
   | UpdateCurrHP
   | ResetHPAction;
+
+export type LogActionsTypes = AppendLogEntryAction | CommitLogEntryAction;

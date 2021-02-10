@@ -12,6 +12,7 @@ import ArmorForm from './ArmorForm';
 import SummaryDR from './SummaryDR';
 import DamageTray from './DamageTray';
 import HPField from './HPField';
+import Log from './Log';
 
 const CalcForm = ({
   armorStack,
@@ -75,58 +76,64 @@ const CalcForm = ({
   }
 
   return (
-    <div className='container card'>
-      <div className='row g-2 m-2'>
-        <div className='col-md-4 col-6'>
-          <TextInput id='Name' label='Name' accLabel='Name' />
+    <div className='card'>
+      <div className='container'>
+        <div className='row g-2 m-2'>
+          <div className='col-md-4 col-6'>
+            <TextInput id='Name' label='Name' accLabel='Name' />
+          </div>
+        </div>
+        <div className='row g-2 m-2 justify-content-center'>
+          <div className='col-md-4 col-6'>
+            <HPField />
+          </div>
+          <div className='col-md-4 col-6'>
+            <SummaryDR propDR={dr} setPropDR={setDR} />
+          </div>
+        </div>
+        <div className='row g-2 mb-2'>
+          <div className='col-md-1 col-2 mx-1'>
+            <button
+              className='btn btn-outline-success'
+              onClick={handleAddArmor}
+            >
+              <i className='fs-3 d-flex align-items-top bi bi-shield-fill-plus'></i>
+            </button>
+          </div>
+          <div className='col mx-1'>
+            <button
+              className='btn btn-outline-primary mx-1'
+              onClick={handleCollapse}
+              disabled={armorStack.length === 0}
+            >
+              Collapse All
+            </button>
+            <button
+              className='btn btn-outline-primary mx-1'
+              onClick={handleReset}
+            >
+              Reset
+            </button>
+          </div>
+          <div className='col-md-4 col-4 mx-1'></div>
+        </div>
+        {armorStack
+          .sort((a: Armor, b: Armor) => a.order - b.order)
+          .map((armor: Armor) => {
+            return (
+              <ArmorForm
+                key={armor.id}
+                armor={armor}
+                removeArmor={removeArmor}
+                collapse={collapseSubject}
+              ></ArmorForm>
+            );
+          })}
+        <div className='card-body'>
+          <DamageTray />
         </div>
       </div>
-      <div className='row g-2 m-2 justify-content-center'>
-        <div className='col-md-4 col-6'>
-          <HPField />
-        </div>
-        <div className='col-md-4 col-6'>
-          <SummaryDR propDR={dr} setPropDR={setDR} />
-        </div>
-      </div>
-      <div className='row g-2 mb-2'>
-        <div className='col-md-1 col-2 mx-1'>
-          <button className='btn btn-outline-success' onClick={handleAddArmor}>
-            <i className='fs-3 d-flex align-items-top bi bi-shield-fill-plus'></i>
-          </button>
-        </div>
-        <div className='col mx-1'>
-          <button
-            className='btn btn-outline-primary mx-1'
-            onClick={handleCollapse}
-            disabled={armorStack.length === 0}
-          >
-            Collapse All
-          </button>
-          <button
-            className='btn btn-outline-primary mx-1'
-            onClick={handleReset}
-          >
-            Reset
-          </button>
-        </div>
-        <div className='col-md-4 col-4 mx-1'></div>
-      </div>
-      {armorStack
-        .sort((a: Armor, b: Armor) => a.order - b.order)
-        .map((armor: Armor) => {
-          return (
-            <ArmorForm
-              key={armor.id}
-              armor={armor}
-              removeArmor={removeArmor}
-              collapse={collapseSubject}
-            ></ArmorForm>
-          );
-        })}
-      <div className='card-body'>
-        <DamageTray />
-      </div>
+      <Log />
     </div>
   );
 };
