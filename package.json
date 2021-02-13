@@ -22,6 +22,7 @@
     "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7",
     "babel-loader": "^8.2.2",
+    "babel-plugin-styled-components": "^1.12.0",
     "babel-preset-react-app": "^10.0.0",
     "css-loader": "^5.0.1",
     "cssnano": "^4.1.10",
@@ -66,7 +67,8 @@
     "react-transition-group": "^4.4.1",
     "reactstrap": "^8.9.0",
     "reduce-reducers": "^1.0.4",
-    "rxjs": "^6.6.3"
+    "rxjs": "^6.6.3",
+    "styled-components": "^5.2.1"
   },
   "babel": {
     "presets": [

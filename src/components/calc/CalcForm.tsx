@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Subject } from 'rxjs';
+import styled from 'styled-components';
 
 import { addArmor, removeArmor } from '/src/redux/actions/armorActions';
 import { resetHP } from '/src/redux/actions/characterActions';
@@ -75,8 +76,12 @@ const CalcForm = ({
     resetHP();
   }
 
+  const CustomCard = styled.div`
+    height: 90vh;
+  `;
+
   return (
-    <div className='card'>
+    <CustomCard className='card'>
       <div className='container'>
         <div className='row g-2 m-2'>
           <div className='col-md-4 col-6'>
@@ -134,7 +139,7 @@ const CalcForm = ({
         </div>
       </div>
       <Log />
-    </div>
+    </CustomCard>
   );
 };
 

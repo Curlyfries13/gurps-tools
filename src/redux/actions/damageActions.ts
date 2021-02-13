@@ -65,6 +65,7 @@ export function applyDamage(damage: number): DamageActionTypes {
         store.dispatch(LogArmorDamage(armor, damage, blowthrough));
         damage = blowthrough;
       } else {
+        store.dispatch(LogArmorDamage(armor, damage, 0));
         damage = 0;
       }
     });
