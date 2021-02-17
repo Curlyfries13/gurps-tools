@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "run-p start:dev test",
+    "test": "jest --watchAll",
     "start:dev": "webpack serve --config webpack.config.dev.js --port 3000",
     "prebuild": "npm run clean:build",
     "build": "webpack --config webpack.config.prod.js",
@@ -60,12 +61,11 @@
     "bootstrap-icons": "^1.3.0",
     "markdown-to-jsx": "^7.1.1",
     "react": "^17.0.1",
+    "react-animate-height": "^2.0.23",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
-    "react-thunk": "^1.0.0",
     "react-transition-group": "^4.4.1",
-    "reactstrap": "^8.9.0",
     "reduce-reducers": "^1.0.4",
     "rxjs": "^6.6.3",
     "styled-components": "^5.2.1"

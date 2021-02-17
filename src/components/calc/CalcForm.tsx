@@ -15,6 +15,10 @@ import DamageTray from './DamageTray';
 import HPField from './HPField';
 import Log from './Log';
 
+const CustomCard = styled.div`
+  height: 90vh;
+`;
+
 const CalcForm = ({
   armorStack,
   hp,
@@ -75,10 +79,6 @@ const CalcForm = ({
   function handleReset() {
     resetHP();
   }
-
-  const CustomCard = styled.div`
-    height: 90vh;
-  `;
 
   return (
     <CustomCard className='card'>
