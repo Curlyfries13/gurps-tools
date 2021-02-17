@@ -20,7 +20,11 @@ const Log = ({ log }: Props) => {
     return (
       <div className='container p-2 bg-dark overflow-auto mh-100' ref={logRef}>
         {log.map((entry: string) => {
-          return <p className='text-light'>{entry}</p>;
+          return (
+            <p key={log.order} className='text-light'>
+              {entry}
+            </p>
+          );
         })}
       </div>
     );
