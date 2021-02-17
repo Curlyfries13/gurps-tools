@@ -33,8 +33,9 @@ export default function armorReducer(
           return armor.id === action.armor.id;
         })
       );
+      // this is where the Armor moves onto: this will need to go to the pivot's
+      // original location
       let target: Armor = pivot;
-
       if (action.direction === MoveDirection.UP) {
         // reduce pivot order and increase target (if valid)
         if (pivot.order === 0) {
@@ -46,8 +47,6 @@ export default function armorReducer(
               (armor: Armor) => armor.order + 1 === pivot.order
             )
           );
-          target.order += 1;
-          pivot.order -= 1;
         }
       } else if (action.direction === MoveDirection.DOWN) {
         if (pivot.order === state.armorStack.length - 1) {
@@ -58,16 +57,15 @@ export default function armorReducer(
               (armor: Armor) => armor.order - 1 === pivot.order
             )
           );
-          target.order -= 1;
-          pivot.order += 1;
         }
       }
+
       let outState = state.armorStack
         .map((armor: Armor) => {
           if (armor.id === pivot.id) {
-            return pivot;
+            return { ...pivot, order: target.order };
           } else if (armor.id === target.id) {
-            return target;
+            return { ...target, order: pivot.order };
           } else {
             return armor;
           }
