@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
-import { updateArmor } from '/src/redux/actions/armorActions';
-import { RootState } from '/src/redux/reducers';
+import { updateArmor } from 'src/redux/actions/armorActions';
+import { RootState } from 'src/redux/reducers';
 
-import { Armor } from '/src/types';
-import { ensureFound } from '/src/utils/jsUtils';
+import { Armor } from 'src/types';
+import { ensureFound } from 'src/utils/jsUtils';
 import TextInput from '../common/TextInput';
 
 const DRField = ({ armorId, armor, updateArmor }: Props) => {

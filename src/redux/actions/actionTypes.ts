@@ -149,4 +149,4 @@ export type CharacterActionTypes =
   | UpdateCurrHP
   | ResetHPAction;
 
-export type LogActionsTypes = AppendLogEntryAction | CommitLogEntryAction;
+export type LogActionTypes = AppendLogEntryAction | CommitLogEntryAction;

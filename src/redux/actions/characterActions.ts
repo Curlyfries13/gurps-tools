@@ -1,7 +1,7 @@
-import store from '/src/redux';
+import store from 'src/redux';
 import * as actionTypes from './actionTypes';
 import { CharacterActionTypes } from './actionTypes';
-import { numberPattern } from '/src/utils/jsUtils';
+import { numberPattern } from 'src/utils/jsUtils';
 
 export function updateDisplayHP(value: string): CharacterActionTypes {
   if (value && value.match(numberPattern) !== null) {

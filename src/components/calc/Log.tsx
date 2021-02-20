@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
-import { RootState } from '/src/redux';
+import { RootState } from 'src/redux';
 
 const Log = ({ log }: Props) => {
   const logRef = useRef(null);

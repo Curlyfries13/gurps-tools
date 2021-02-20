@@ -1,6 +1,6 @@
 import { Armor } from 'src/types';
 
-import store from '/src/redux';
+import store from 'src/redux';
 import * as actionTypes from './actionTypes';
 import { LogActionTypes } from './actionTypes';
 

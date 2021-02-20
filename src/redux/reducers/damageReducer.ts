@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 import { DamageActionTypes } from '../actions/actionTypes';
 import initialState from './initialState';
-import { Armor } from '/src/types';
+import { Armor } from 'src/types';
 
 // TODO: break this out from the reducer
 export default function damageReducer(

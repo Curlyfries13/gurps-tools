@@ -3,11 +3,11 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Subject } from 'rxjs';
 import styled from 'styled-components';
 
-import { addArmor, removeArmor } from '/src/redux/actions/armorActions';
-import { resetHP } from '/src/redux/actions/characterActions';
-import { RootState } from '/src/redux';
+import { addArmor, removeArmor } from 'src/redux/actions/armorActions';
+import { resetHP } from 'src/redux/actions/characterActions';
+import { RootState } from 'src/redux';
 
-import { Armor } from '/src/types';
+import { Armor } from 'src/types';
 import TextInput from '../common/TextInput';
 import ArmorForm from './ArmorForm';
 import SummaryDR from './SummaryDR';
@@ -19,7 +19,7 @@ const CustomCard = styled.div`
   height: 90vh;
 `;
 
-const CalcForm = ({
+export const CalcForm = ({
   armorStack,
   hp,
   currHP,

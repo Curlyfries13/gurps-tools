@@ -4,8 +4,8 @@ import { connect, ConnectedProps } from 'react-redux';
 import {
   updateDisplayHP,
   updateDisplayCurrHP,
-} from '/src/redux/actions/characterActions';
-import { RootState } from '/src/redux';
+} from 'src/redux/actions/characterActions';
+import { RootState } from 'src/redux';
 
 const HPField = ({
   hp,

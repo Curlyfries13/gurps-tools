@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Subject } from 'rxjs';
 
-import { Armor, MoveDirection } from '/src/types';
-import { moveArmor, updateArmor } from '/src/redux/actions/armorActions';
-import { RootState } from '/src/redux';
+import { Armor, MoveDirection } from 'src/types';
+import { moveArmor, updateArmor } from 'src/redux/actions/armorActions';
+import { RootState } from 'src/redux';
 
-import { default as Collapse } from '/src/components/common/Collapse';
+import { default as Collapse } from 'src/components/common/Collapse';
 import TextInput from '../common/TextInput';
 import DRField from './DRField';
 import AblateField from './AblateField';

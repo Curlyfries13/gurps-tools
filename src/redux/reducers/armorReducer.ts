@@ -1,8 +1,8 @@
-import { Armor, MoveDirection } from '/src/types';
+import { Armor, MoveDirection } from 'src/types';
 import * as actionTypes from '../actions/actionTypes';
 import { ArmorActionTypes } from '../actions/actionTypes';
 import initialState from './initialState';
-import { ensureFound } from '/src/utils/jsUtils';
+import { ensureFound } from 'src/utils/jsUtils';
 
 export default function armorReducer(
   state = initialState,

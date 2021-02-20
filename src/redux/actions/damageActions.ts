@@ -1,4 +1,4 @@
-import store from '/src/redux';
+import store from 'src/redux';
 
 import * as actionTypes from './actionTypes';
 import { DamageActionTypes } from './actionTypes';
@@ -10,9 +10,9 @@ import {
 } from './logActions';
 import { damageHP } from './characterActions';
 
-import { basicPattern as pattern } from '/src/utils/diceUtils';
-import { ensureFound, getRandomInt } from '/src/utils/jsUtils';
-import { Armor } from '/src/types';
+import { basicPattern as pattern } from 'src/utils/diceUtils';
+import { ensureFound, getRandomInt } from 'src/utils/jsUtils';
+import { Armor } from 'src/types';
 
 // call this with a dice expression
 export function rollDamage(value: string): DamageActionTypes | void {

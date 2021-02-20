@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
-import { RootState } from '/src/redux';
+import { RootState } from 'src/redux';
 import {
   setExpression,
   setValidExpression,
   setDiceMode,
-} from '/src/redux/actions/damageActions';
-import { basicPattern as dicePattern } from '/src/utils/diceUtils';
-import { numberPattern } from '/src/utils/jsUtils';
+} from 'src/redux/actions/damageActions';
+import { basicPattern as dicePattern } from 'src/utils/diceUtils';
+import { numberPattern } from 'src/utils/jsUtils';
 
 // Consider if we want to move this out into Redux
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
-import { RootState } from '/src/redux';
-import { rollDamage, applyDamage } from '/src/redux/actions/damageActions';
+import { RootState } from 'src/redux';
+import { rollDamage, applyDamage } from 'src/redux/actions/damageActions';
 
 import DiceTray from './DiceTray';
 
