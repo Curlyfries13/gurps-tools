@@ -3,7 +3,7 @@ import React from 'react';
 import { RenderResult } from '@testing-library/react';
 import CalcForm from './CalcForm';
 
-import { render } from 'tools/test-utils';
+import { render, fireEvent, screen } from 'tools/test-utils';
 import store from 'src/redux';
 
 const mockState = {
@@ -25,4 +25,17 @@ it('matches snapshot', async () => {
     store: store,
   });
   expect(component).toMatchSnapshot();
+});
+
+it('adds armor components', () => {
+  const component: RenderResult = render(<CalcForm />, {
+    initialState: mockState,
+    store: store,
+  });
+  fireEvent.click(screen.getByRole('button', { name: /add armor/i }));
+  fireEvent.click(screen.getByRole('button', { name: /add armor/i }));
+
+  expect(
+    screen.getAllByRole('listitem', { name: /armor section/i }).length
+  ).toBe(2);
 });
