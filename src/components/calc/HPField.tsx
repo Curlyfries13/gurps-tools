@@ -39,7 +39,7 @@ const HPField = ({
         <div>
           <input
             type='text'
-            aria-label='total hit points'
+            aria-label='current hit points'
             className='form-control'
             id='current-hp'
             value={currHP}

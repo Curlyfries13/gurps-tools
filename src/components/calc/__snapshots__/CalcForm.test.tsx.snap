@@ -49,7 +49,7 @@ Object {
               >
                 <div>
                   <input
-                    aria-label="total hit points"
+                    aria-label="current hit points"
                     class="form-control"
                     id="current-hp"
                     type="text"
@@ -97,6 +97,7 @@ Object {
               class="col-md-1 col-2 mx-1"
             >
               <button
+                aria-label="add armor"
                 class="btn btn-outline-success"
               >
                 <i
@@ -123,6 +124,10 @@ Object {
               class="col-md-4 col-4 mx-1"
             />
           </div>
+          <div
+            aria-label="armor stack"
+            role="list"
+          />
           <div
             class="card-body"
           >
@@ -218,7 +223,7 @@ Object {
             >
               <div>
                 <input
-                  aria-label="total hit points"
+                  aria-label="current hit points"
                   class="form-control"
                   id="current-hp"
                   type="text"
@@ -266,6 +271,7 @@ Object {
             class="col-md-1 col-2 mx-1"
           >
             <button
+              aria-label="add armor"
               class="btn btn-outline-success"
             >
               <i
@@ -292,6 +298,10 @@ Object {
             class="col-md-4 col-4 mx-1"
           />
         </div>
+        <div
+          aria-label="armor stack"
+          role="list"
+        />
         <div
           class="card-body"
         >

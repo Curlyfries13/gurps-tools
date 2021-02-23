@@ -99,6 +99,7 @@ export const CalcForm = ({
         <div className='row g-2 mb-2'>
           <div className='col-md-1 col-2 mx-1'>
             <button
+              aria-label='add armor'
               className='btn btn-outline-success'
               onClick={handleAddArmor}
             >
@@ -122,18 +123,20 @@ export const CalcForm = ({
           </div>
           <div className='col-md-4 col-4 mx-1'></div>
         </div>
-        {armorStack
-          .sort((a: Armor, b: Armor) => a.order - b.order)
-          .map((armor: Armor) => {
-            return (
-              <ArmorForm
-                key={armor.id}
-                armor={armor}
-                removeArmor={removeArmor}
-                collapse={collapseSubject}
-              ></ArmorForm>
-            );
-          })}
+        <div aria-label='armor stack' role='list'>
+          {armorStack
+            .sort((a: Armor, b: Armor) => a.order - b.order)
+            .map((armor: Armor) => {
+              return (
+                <ArmorForm
+                  key={armor.id}
+                  armor={armor}
+                  removeArmor={removeArmor}
+                  collapse={collapseSubject}
+                ></ArmorForm>
+              );
+            })}
+        </div>
         <div className='card-body'>
           <DamageTray />
         </div>

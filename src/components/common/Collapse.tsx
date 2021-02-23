@@ -7,6 +7,8 @@ const Collapse = (props: any) => {
       duration={350}
       height={props.isOpen ? 'auto' : 0}
       contentClassName={props.className}
+      role={props.role ?? ''}
+      aria-label={props['aria-label'] ?? ''}
     >
       {props.children}
     </AnimateHeight>

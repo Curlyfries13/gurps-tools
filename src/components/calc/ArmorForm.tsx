@@ -65,7 +65,11 @@ const ArmorForm = ({
   };
 
   return (
-    <div className='container mb-2 card card-body'>
+    <div
+      className='container mb-2 card card-body'
+      role='listitem'
+      aria-label={armor.name + ' section'}
+    >
       <div className='row g-2 mb-2'>
         <div className='col'>
           <button className='btn btn-primary' type='button' onClick={toggle}>
@@ -84,6 +88,8 @@ const ArmorForm = ({
       </div>
       <Collapse
         className='row md-flex justify-content-between b-2 mb-3'
+        role='group'
+        aria-label={'armor ' + armor.order + ' collapse group'}
         isOpen={isOpen}
       >
         <div className='col col-6'>
