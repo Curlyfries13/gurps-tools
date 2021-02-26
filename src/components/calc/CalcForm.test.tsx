@@ -22,7 +22,6 @@ const mockState = {
 it('matches snapshot', async () => {
   const component: RenderResult = render(<CalcForm />, {
     initialState: mockState,
-    store: store,
   });
   expect(component).toMatchSnapshot();
 });
@@ -30,12 +29,27 @@ it('matches snapshot', async () => {
 it('adds armor components', () => {
   const component: RenderResult = render(<CalcForm />, {
     initialState: mockState,
-    store: store,
   });
   fireEvent.click(screen.getByRole('button', { name: /add armor/i }));
   fireEvent.click(screen.getByRole('button', { name: /add armor/i }));
 
+  const test = screen.getAllByRole('listitem', { name: /armor section/i });
   expect(
     screen.getAllByRole('listitem', { name: /armor section/i }).length
   ).toBe(2);
+});
+
+// Integration test between CalcForm and Armor sub-components
+it('collapses armor components', () => {
+  const component: RenderResult = render(<CalcForm />, {
+    initialState: mockState,
+  });
+  // TODO: fix state carryover
+  const test = screen.queryAllByRole('listitem', { name: /armor section/i });
+  fireEvent.click(screen.getByRole('button', { name: /add armor/i }));
+
+  fireEvent.click(screen.getByRole('button', { name: /collapse all/i }));
+  expect(
+    screen.queryAllByRole('group', { name: /collapse group/i }).length
+  ).toBe(0);
 });

@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 
-import rootReducer from './reducers';
+import rootReducer, { createReducer } from './reducers';
 
 const middleware =
   process.env.NODE_ENV !== 'production'
@@ -13,6 +13,14 @@ const store = configureStore({
   middleware: middleware,
   devTools: true,
 });
+
+export const createStore = (initialState: any) => {
+  return configureStore({
+    reducer: createReducer(initialState),
+    middleware: middleware,
+    devTools: true,
+  });
+};
 
 export * from './reducers';
 export default store;

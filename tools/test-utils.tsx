@@ -3,7 +3,7 @@ import React from 'react';
 
 // test-utils.js
 import { render } from '@testing-library/react';
-import { createStore } from 'redux';
+import { createStore } from 'src/redux';
 import { Provider } from 'react-redux';
 // Import your own reducer
 //
@@ -11,20 +11,19 @@ import { Provider } from 'react-redux';
 
 import * as reducer from 'src/redux/reducers';
 
-
 const customRender = (
-  ui,
+  ui: any,
   {
-    initialState,
-    store = createStore(reducer, initialState),
+    initialState = {},
+    store = createStore(initialState),
     ...renderOptions
   } = {}
 ) => {
-  const Wrapper =({ children }) => {
+  const Wrapper = ({ children }) => {
     return <Provider store={store}>{children}</Provider>;
-  }
+  };
   return render(ui, { wrapper: Wrapper, ...renderOptions });
-}
+};
 
 // re-export everything
 export * from '@testing-library/react';
