@@ -11,6 +11,13 @@ const mockState = {
   currHP: 0,
 };
 
+it('matches snapshot', async () => {
+  const component: RenderResult = render(<HPField />, {
+    initialState: mockState,
+  });
+  expect(component).toMatchSnapshot();
+});
+
 it('updates the current HP to the total HP ', async () => {
   render(<HPField />, {
     initialState: mockState,
