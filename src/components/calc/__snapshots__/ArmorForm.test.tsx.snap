@@ -1,0 +1,380 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        aria-label="undefined section"
+        class="container mb-2 card card-body"
+        role="listitem"
+      >
+        <div
+          class="row g-2 mb-2"
+        >
+          <div
+            class="col"
+          >
+            <button
+              class="btn btn-primary"
+              type="button"
+            >
+              Collapse undefined
+            </button>
+          </div>
+          <div
+            class="d-grid col-3 col-md2"
+          >
+            <button
+              class="btn btn-outline-danger"
+              type="button"
+            >
+              <i
+                class="bi bi-shield-slash"
+              />
+            </button>
+          </div>
+        </div>
+        <div
+          aria-hidden="false"
+          aria-label="armor undefined collapse group"
+          class="rah-static rah-static--height-auto"
+          role="group"
+          style="height: auto; overflow: visible;"
+        >
+          <div
+            class="row md-flex justify-content-between b-2 mb-3"
+          >
+            <div
+              class="col col-6"
+            >
+              <label
+                class="form-label"
+                for="0-name"
+              >
+                Name
+              </label>
+              <input
+                aria-label="Name"
+                class="form-control"
+                id="0-name"
+                type="text"
+                value=""
+              />
+              <label
+                class="form-label d-flex justify-content-center"
+                for=""
+              >
+                DR
+              </label>
+              <input
+                aria-label="Damage Resistence"
+                class="form-control"
+                id=""
+                type="text"
+                value="0"
+              />
+            </div>
+            <div
+              class="col col-6"
+            >
+              <div
+                class="row mb-1"
+              >
+                <div
+                  class="form-check form-switch"
+                >
+                  <input
+                    class="form-check-input"
+                    id="0-ablative"
+                    type="checkbox"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="0-ablative"
+                  >
+                    Ablative
+                  </label>
+                </div>
+              </div>
+              <div
+                aria-hidden="true"
+                aria-label=""
+                class="rah-static rah-static--height-zero"
+                role=""
+                style="height: 0px; overflow: hidden;"
+              >
+                <div
+                  class="row mb-1"
+                  style="display: none;"
+                >
+                  <div
+                    class="row"
+                  >
+                    <label
+                      class="col col-form-label"
+                      for="0-ablateBase"
+                    >
+                      Ablate Base
+                    </label>
+                    <div
+                      class="col"
+                    >
+                      <input
+                        aria-label="this armor's ablative base"
+                        class="form-control"
+                        id="0-ablateBase"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="row d-flex mb-1 g-4 justify-content-center"
+        >
+          <div
+            class="d-grid col col-2"
+          >
+            <button
+              class="btn btn-outline-secondary"
+              disabled=""
+            >
+              <i
+                class="bi bi-caret-down-fill"
+              />
+            </button>
+          </div>
+          <div
+            class="d-grid col col-2"
+          >
+            <button
+              class="btn btn-outline-secondary"
+              disabled=""
+            >
+              <i
+                class="bi bi-caret-up-fill"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      aria-label="undefined section"
+      class="container mb-2 card card-body"
+      role="listitem"
+    >
+      <div
+        class="row g-2 mb-2"
+      >
+        <div
+          class="col"
+        >
+          <button
+            class="btn btn-primary"
+            type="button"
+          >
+            Collapse undefined
+          </button>
+        </div>
+        <div
+          class="d-grid col-3 col-md2"
+        >
+          <button
+            class="btn btn-outline-danger"
+            type="button"
+          >
+            <i
+              class="bi bi-shield-slash"
+            />
+          </button>
+        </div>
+      </div>
+      <div
+        aria-hidden="false"
+        aria-label="armor undefined collapse group"
+        class="rah-static rah-static--height-auto"
+        role="group"
+        style="height: auto; overflow: visible;"
+      >
+        <div
+          class="row md-flex justify-content-between b-2 mb-3"
+        >
+          <div
+            class="col col-6"
+          >
+            <label
+              class="form-label"
+              for="0-name"
+            >
+              Name
+            </label>
+            <input
+              aria-label="Name"
+              class="form-control"
+              id="0-name"
+              type="text"
+              value=""
+            />
+            <label
+              class="form-label d-flex justify-content-center"
+              for=""
+            >
+              DR
+            </label>
+            <input
+              aria-label="Damage Resistence"
+              class="form-control"
+              id=""
+              type="text"
+              value="0"
+            />
+          </div>
+          <div
+            class="col col-6"
+          >
+            <div
+              class="row mb-1"
+            >
+              <div
+                class="form-check form-switch"
+              >
+                <input
+                  class="form-check-input"
+                  id="0-ablative"
+                  type="checkbox"
+                />
+                <label
+                  class="form-check-label"
+                  for="0-ablative"
+                >
+                  Ablative
+                </label>
+              </div>
+            </div>
+            <div
+              aria-hidden="true"
+              aria-label=""
+              class="rah-static rah-static--height-zero"
+              role=""
+              style="height: 0px; overflow: hidden;"
+            >
+              <div
+                class="row mb-1"
+                style="display: none;"
+              >
+                <div
+                  class="row"
+                >
+                  <label
+                    class="col col-form-label"
+                    for="0-ablateBase"
+                  >
+                    Ablate Base
+                  </label>
+                  <div
+                    class="col"
+                  >
+                    <input
+                      aria-label="this armor's ablative base"
+                      class="form-control"
+                      id="0-ablateBase"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="row d-flex mb-1 g-4 justify-content-center"
+      >
+        <div
+          class="d-grid col col-2"
+        >
+          <button
+            class="btn btn-outline-secondary"
+            disabled=""
+          >
+            <i
+              class="bi bi-caret-down-fill"
+            />
+          </button>
+        </div>
+        <div
+          class="d-grid col col-2"
+        >
+          <button
+            class="btn btn-outline-secondary"
+            disabled=""
+          >
+            <i
+              class="bi bi-caret-up-fill"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
