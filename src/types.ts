@@ -37,4 +37,4 @@ export const DamageTypes = {
   tox: { name: 'toxic', mult: 1 },
 };
 
-export type DamageTypeCollection = typeof DamageTypes;
+export type DamageTypesCollection = typeof DamageTypes;

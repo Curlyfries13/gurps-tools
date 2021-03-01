@@ -3,19 +3,23 @@ import store from 'src/redux';
 import * as actionTypes from './actionTypes';
 import { DamageActionTypes } from './actionTypes';
 import {
-  LogRollAction,
   LogArmorDamage,
-  LogHealthDamageAction,
   LogEntryAction,
+  LogHealthDamageAction,
+  LogRollAction,
+  LogNoDamageTaken,
 } from './logActions';
 import { damageHP } from './characterActions';
 
 import { basicPattern as pattern } from 'src/utils/diceUtils';
 import { ensureFound, getRandomInt } from 'src/utils/jsUtils';
-import { Armor } from 'src/types';
+import { Armor, DamageTypes, DamageTypesCollection } from 'src/types';
 
 // call this with a dice expression
-export function rollDamage(value: string): DamageActionTypes | void {
+export function rollDamage(
+  value: string,
+  damageType: string
+): DamageActionTypes | void {
   const match = ensureFound<RegExpMatchArray>(value.match(pattern));
   const [, mult, sides, mod] = match;
   if (match === null) {
@@ -49,13 +53,25 @@ export function rollDamage(value: string): DamageActionTypes | void {
   out += modNum;
   store.dispatch(LogRollAction(value, out, results, sidesNum));
 
-  store.dispatch(applyDamage(out));
-  store.dispatch(LogEntryAction());
+  store.dispatch(applyDamage(out, damageType));
   return { type: actionTypes.ROLL_DAMAGE, roll: results };
 }
 
-export function applyDamage(damage: number): DamageActionTypes {
+export function applyDamage(
+  damage: number,
+  damageType: string = 'cr'
+): DamageActionTypes {
   // main damage logic
+
+  // B378, check for negative modifiers
+  // NOTE this may get tricky if we allow custom damage types which have 0
+  // minumums.
+  if (damageType == 'cr' && damage < 0) {
+    damage = 0;
+  } else if (damage < 0) {
+    damage = 1;
+  }
+
   store
     .getState()
     .armorStack.sort((a: Armor, b: Armor) => a.order - b.order)
@@ -70,9 +86,14 @@ export function applyDamage(damage: number): DamageActionTypes {
       }
     });
   if (damage > 0) {
-    store.dispatch(damageHP(damage));
-    store.dispatch(LogHealthDamageAction(damage));
+    const mult = DamageTypes[damageType as keyof DamageTypesCollection].mult;
+    const penDamage = Math.floor(damage * mult);
+    store.dispatch(damageHP(penDamage));
+    store.dispatch(LogHealthDamageAction(penDamage));
+  } else {
+    store.dispatch(LogNoDamageTaken());
   }
+  store.dispatch(LogEntryAction());
   return { type: actionTypes.APPLY_DAMAGE, value: damage };
 }
 

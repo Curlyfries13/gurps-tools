@@ -54,6 +54,11 @@ export function LogHealthDamageAction(value: number): LogActionTypes {
   return { type: actionTypes.APPEND_LOG_ENTRY, message: out_string };
 }
 
+export function LogNoDamageTaken(): LogActionTypes {
+  let outString: string = `no damage taken.`;
+  return { type: actionTypes.APPEND_LOG_ENTRY, message: outString };
+}
+
 export function LogEntryAction(): LogActionTypes {
   return { type: actionTypes.COMMIT_LOG_ENTRY };
 }

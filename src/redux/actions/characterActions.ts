@@ -14,9 +14,12 @@ export function updateDisplayHP(value: string): CharacterActionTypes {
   return { type: actionTypes.UPDATE_DISPLAY_HP, value };
 }
 
-export function damageHP(value: number): CharacterActionTypes {
-  // TODO: if adding shpck, critical injuries etc. add extra action calls here
-  return { type: actionTypes.DAMAGE_HP, value };
+export function damageHP(
+  value: number,
+  mult: number = 1.0
+): CharacterActionTypes {
+  // TODO: if adding shock, critical injuries etc. add extra action calls here
+  return { type: actionTypes.DAMAGE_HP, value, mult };
 }
 
 export function updateDisplayCurrHP(value: string): CharacterActionTypes {

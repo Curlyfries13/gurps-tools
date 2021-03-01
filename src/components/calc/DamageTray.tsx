@@ -10,14 +10,15 @@ const DamageTray = ({
   diceMode,
   expression,
   expressionIsValid,
+  damageType,
   rollDamage,
   applyDamage,
 }: Props) => {
   const handleDamage = () => {
     if (expressionIsValid && diceMode) {
-      rollDamage(expression);
+      rollDamage(expression, damageType);
     } else if (expressionIsValid) {
-      applyDamage(parseInt(expression, 10) || 0);
+      applyDamage(parseInt(expression, 10) || 0, damageType);
     }
   };
 
@@ -48,6 +49,7 @@ function mapStateToProps(state: RootState) {
     diceMode: state.diceMode,
     expression: state.damageExpression,
     expressionIsValid: state.expressionIsValid,
+    damageType: state.damageType,
   };
 }
 
