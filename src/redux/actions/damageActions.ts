@@ -87,3 +87,7 @@ export function setExpression(value: string): DamageActionTypes {
 export function setDiceMode(value: boolean): DamageActionTypes {
   return { type: actionTypes.UPDATE_DICE_MODE, value };
 }
+
+export function setDamageType(key: string): DamageActionTypes {
+  return { type: actionTypes.SET_DAMAGE_TYPE, key };
+}

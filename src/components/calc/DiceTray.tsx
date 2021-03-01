@@ -10,6 +10,8 @@ import {
 import { basicPattern as dicePattern } from 'src/utils/diceUtils';
 import { numberPattern } from 'src/utils/jsUtils';
 
+import DamageTypeSelection from './DamageTypeSelection';
+
 // Consider if we want to move this out into Redux
 
 const DiceTray = ({
@@ -48,15 +50,21 @@ const DiceTray = ({
       >
         Damage Value
       </label>
-      <input
-        type='tet'
-        aria-label='value for damage calculation'
-        className='form-control'
-        id={id + 'value'}
-        value={expression}
-        onChange={handleValueChange}
-      />
-      <div className='row m-2'></div>
+      <div className='row m-2'>
+        <div className='col-md-6'>
+          <input
+            type='tet'
+            aria-label='value for damage calculation'
+            className='form-control'
+            id={id + 'value'}
+            value={expression}
+            onChange={handleValueChange}
+          />
+        </div>
+        <div className='col-md-6'>
+          <DamageTypeSelection />
+        </div>
+      </div>
     </>
   );
 };

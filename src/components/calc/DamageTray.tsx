@@ -37,9 +37,7 @@ const DamageTray = ({
         </div>
       </div>
       <div className='row m-2'>
-        <div className='col col-6 offset-3 d-grid'>
-          <DiceTray />
-        </div>
+        <DiceTray />
       </div>
     </>
   );

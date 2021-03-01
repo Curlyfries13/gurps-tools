@@ -21,6 +21,7 @@ export const COMMIT_LOG_ENTRY = 'LOG_ENTRY';
 export const UPDATE_DAMAGE_EXPRESSION = 'UPDATE_DAMAGE_EXPRESSION';
 export const UPDATE_EXPRESSION_VALID = 'UPDATE_EXPRESSION_VALID';
 export const UPDATE_DICE_MODE = 'UPDATE_DICE_MODE';
+export const SET_DAMAGE_TYPE = 'SET_DAMAGE_TYPE';
 
 // status only actions
 export const ROLL_DAMAGE = 'ROLL_DAMAGE';
@@ -117,6 +118,11 @@ interface UpdateDiceModeAction {
   value: boolean;
 }
 
+interface SetDamageType {
+  type: typeof SET_DAMAGE_TYPE;
+  key: string;
+}
+
 interface RollDamageAction {
   type: typeof ROLL_DAMAGE;
   roll: number[];
@@ -139,7 +145,8 @@ export type DamageActionTypes =
   | UpdateExpressionValidAction
   | UpdateDiceModeAction
   | RollDamageAction
-  | ApplyDamageAction;
+  | ApplyDamageAction
+  | SetDamageType;
 
 export type CharacterActionTypes =
   | UpdateDisplayHPAction

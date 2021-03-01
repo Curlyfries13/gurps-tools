@@ -9,6 +9,8 @@ export default {
   currHp: 0,
   diceMode: false,
   damageExpression: '0',
+  damageType: 'cr',
+  damageMultiplier: 1,
   expressionIsValid: true,
   log: [],
   currentLogEntry: '',

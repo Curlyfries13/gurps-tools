@@ -26,25 +26,90 @@ Object {
       <div
         class="row m-2"
       >
-        <div
-          class="col col-6 offset-3 d-grid"
+        <label
+          class="col col-form-label d-flex justify-content-center"
+          for="dice-trayvalue"
         >
-          <label
-            class="col col-form-label d-flex justify-content-center"
-            for="dice-trayvalue"
-          >
-            Damage Value
-          </label>
-          <input
-            aria-label="value for damage calculation"
-            class="form-control"
-            id="dice-trayvalue"
-            type="tet"
-            value=""
-          />
+          Damage Value
+        </label>
+        <div
+          class="row m-2"
+        >
           <div
-            class="row m-2"
-          />
+            class="col-md-6"
+          >
+            <input
+              aria-label="value for damage calculation"
+              class="form-control"
+              id="dice-trayvalue"
+              type="tet"
+              value=""
+            />
+          </div>
+          <div
+            class="col-md-6"
+          >
+            <select
+              aria-label="damage type selection"
+              class="form-select"
+            >
+              <option
+                value="cr"
+              >
+                cr
+              </option>
+              <option
+                value="cut"
+              >
+                cut
+              </option>
+              <option
+                value="imp"
+              >
+                imp
+              </option>
+              <option
+                value="pi"
+              >
+                pi
+              </option>
+              <option
+                value="pi+"
+              >
+                pi+
+              </option>
+              <option
+                value="pi++"
+              >
+                pi++
+              </option>
+              <option
+                value="pi-"
+              >
+                pi-
+              </option>
+              <option
+                value="burn"
+              >
+                burn
+              </option>
+              <option
+                value="cor"
+              >
+                cor
+              </option>
+              <option
+                value="fat"
+              >
+                fat
+              </option>
+              <option
+                value="tox"
+              >
+                tox
+              </option>
+            </select>
+          </div>
         </div>
       </div>
     </div>
@@ -71,25 +136,90 @@ Object {
     <div
       class="row m-2"
     >
-      <div
-        class="col col-6 offset-3 d-grid"
+      <label
+        class="col col-form-label d-flex justify-content-center"
+        for="dice-trayvalue"
       >
-        <label
-          class="col col-form-label d-flex justify-content-center"
-          for="dice-trayvalue"
-        >
-          Damage Value
-        </label>
-        <input
-          aria-label="value for damage calculation"
-          class="form-control"
-          id="dice-trayvalue"
-          type="tet"
-          value=""
-        />
+        Damage Value
+      </label>
+      <div
+        class="row m-2"
+      >
         <div
-          class="row m-2"
-        />
+          class="col-md-6"
+        >
+          <input
+            aria-label="value for damage calculation"
+            class="form-control"
+            id="dice-trayvalue"
+            type="tet"
+            value=""
+          />
+        </div>
+        <div
+          class="col-md-6"
+        >
+          <select
+            aria-label="damage type selection"
+            class="form-select"
+          >
+            <option
+              value="cr"
+            >
+              cr
+            </option>
+            <option
+              value="cut"
+            >
+              cut
+            </option>
+            <option
+              value="imp"
+            >
+              imp
+            </option>
+            <option
+              value="pi"
+            >
+              pi
+            </option>
+            <option
+              value="pi+"
+            >
+              pi+
+            </option>
+            <option
+              value="pi++"
+            >
+              pi++
+            </option>
+            <option
+              value="pi-"
+            >
+              pi-
+            </option>
+            <option
+              value="burn"
+            >
+              burn
+            </option>
+            <option
+              value="cor"
+            >
+              cor
+            </option>
+            <option
+              value="fat"
+            >
+              fat
+            </option>
+            <option
+              value="tox"
+            >
+              tox
+            </option>
+          </select>
+        </div>
       </div>
     </div>
   </div>,
