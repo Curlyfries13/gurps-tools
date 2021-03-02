@@ -5,7 +5,7 @@ import initialState from './initialState';
 import { ensureFound } from 'src/utils/jsUtils';
 
 export default function armorReducer(
-  state = initialState,
+  state: typeof initialState = initialState,
   action: ArmorActionTypes
 ) {
   switch (action.type) {
