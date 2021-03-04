@@ -83,7 +83,6 @@ interface UpdateCurrHP {
 interface DamageHPAction {
   type: typeof DAMAGE_HP;
   value: number;
-  mult: number;
 }
 
 interface ResetHPAction {

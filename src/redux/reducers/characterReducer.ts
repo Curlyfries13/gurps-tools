@@ -13,11 +13,15 @@ export default function characterReducer(
       return { ...state, hp: action.value };
     case actionTypes.DAMAGE_HP:
       const outHP: number = state.currHp - action.value;
-      return { ...state, currHp: outHP, displayCurrHP: outHP };
+      return { ...state, currHp: outHP, displayCurrHP: String(outHP) };
     case actionTypes.UPDATE_DISPLAY_CURR_HP:
       return { ...state, displayCurrHP: action.value };
     case actionTypes.UPDATE_CURR_HP:
-      return { ...state, currHp: action.value, displayCurrHP: action.value };
+      return {
+        ...state,
+        currHp: action.value,
+        displayCurrHP: String(action.value),
+      };
     case actionTypes.RESET_HP:
       return { ...state, currHp: state.hp, displayCurrHP: state.hp };
     default:
