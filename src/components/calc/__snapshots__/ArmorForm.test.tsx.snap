@@ -63,17 +63,20 @@ Object {
                 value=""
               />
               <label
-                class="form-label d-flex justify-content-center"
-                for=""
+                class="col col-form-label d-flex justify-content-center"
               >
                 DR
               </label>
+              <label
+                class="form-label d-flex justify-content-center"
+                for=""
+              />
               <input
-                aria-label="Damage Resistence"
+                aria-label="Max Damage Resistence"
                 class="form-control"
                 id=""
                 type="text"
-                value="0"
+                value="undefined"
               />
             </div>
             <div
@@ -224,17 +227,20 @@ Object {
               value=""
             />
             <label
-              class="form-label d-flex justify-content-center"
-              for=""
+              class="col col-form-label d-flex justify-content-center"
             >
               DR
             </label>
+            <label
+              class="form-label d-flex justify-content-center"
+              for=""
+            />
             <input
-              aria-label="Damage Resistence"
+              aria-label="Max Damage Resistence"
               class="form-control"
               id=""
               type="text"
-              value="0"
+              value="undefined"
             />
           </div>
           <div

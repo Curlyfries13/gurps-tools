@@ -64,8 +64,8 @@ const HPField = ({
 
 function mapStateToProps(state: RootState) {
   return {
-    hp: state.displayHP,
-    currHP: state.displayCurrHP,
+    hp: state.hp,
+    currHP: state.currHp,
   };
 }
 

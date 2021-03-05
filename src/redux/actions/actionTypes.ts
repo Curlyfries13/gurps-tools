@@ -135,6 +135,7 @@ interface ApplyDamageAction {
 
 export type ArmorActionTypes =
   | CreateArmorAction
+  | DamageDRAction
   | DeleteArmorAction
   | UpdateArmorAction
   | MoveArmorAction;

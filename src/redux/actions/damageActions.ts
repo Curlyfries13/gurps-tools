@@ -2,13 +2,16 @@ import store from 'src/redux';
 
 import * as actionTypes from './actionTypes';
 import { DamageActionTypes } from './actionTypes';
+
 import {
+  LogArmorAblateAction,
   LogArmorDamage,
   LogEntryAction,
   LogHealthDamageAction,
   LogRollAction,
   LogNoDamageTaken,
 } from './logActions';
+import { damageDR } from './armorActions';
 import { damageHP } from './characterActions';
 
 import { basicPattern as pattern } from 'src/utils/diceUtils';
@@ -57,12 +60,11 @@ export function rollDamage(
   return { type: actionTypes.ROLL_DAMAGE, roll: results };
 }
 
+// main damage logic
 export function applyDamage(
   damage: number,
   damageType: string = 'cr'
 ): DamageActionTypes {
-  // main damage logic
-
   // B378, check for negative modifiers
   // NOTE this may get tricky if we allow custom damage types which have 0
   // minumums.
@@ -76,13 +78,8 @@ export function applyDamage(
     .getState()
     .armorStack.sort((a: Armor, b: Armor) => a.order - b.order)
     .forEach((armor: Armor) => {
-      if (damage > armor.dr) {
-        let blowthrough = damage - armor.dr;
-        store.dispatch(LogArmorDamage(armor, damage, blowthrough));
-        damage = blowthrough;
-      } else {
-        store.dispatch(LogArmorDamage(armor, damage, 0));
-        damage = 0;
+      if (damage > 0) {
+        damage = calculateArmorDamage(damage, armor);
       }
     });
   if (damage > 0) {
@@ -111,4 +108,23 @@ export function setDiceMode(value: boolean): DamageActionTypes {
 
 export function setDamageType(key: string): DamageActionTypes {
   return { type: actionTypes.SET_DAMAGE_TYPE, key };
+}
+
+// Helper functions
+
+// Apply damage to a piece of armor. Return blowthrough
+// Dispatches 'Damage Armor', 'Log Armor Damage' actions
+function calculateArmorDamage(damage: number, armor: Armor): number {
+  let blowthrough = damage - armor.dr;
+  if (armor.ablative) {
+    // TODO: implement armor divisor math options.
+    let ablate = Math.floor(damage / armor.ablateBase);
+    store.dispatch(damageDR(armor, ablate));
+    store.dispatch(LogArmorAblateAction(armor, ablate));
+  }
+  if (blowthrough > 0) {
+    store.dispatch(LogArmorDamage(armor, damage, blowthrough));
+  }
+
+  return blowthrough < 0 ? 0 : blowthrough;
 }

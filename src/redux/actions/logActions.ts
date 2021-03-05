@@ -37,6 +37,13 @@ export function LogArmorDamage(
   return { type: actionTypes.APPEND_LOG_ENTRY, message: out_string };
 }
 
+export function LogArmorAblateAction(armor: Armor, value: number) {
+  if (value > 0) {
+    const outString = `${armor.name} ablates, losing ${value} DR.`;
+    return { type: actionTypes.APPEND_LOG_ENTRY, message: outString };
+  }
+}
+
 export function LogHealthDamageAction(value: number): LogActionTypes {
   const maxHP = store.getState().hp;
   const currentHP = store.getState().currHp;

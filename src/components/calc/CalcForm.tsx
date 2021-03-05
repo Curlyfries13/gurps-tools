@@ -37,6 +37,8 @@ export const CalcForm = ({
           return prev.id > current.id ? prev : current;
         }).id
   );
+  // only used for summary DR convenience interaction
+  const [dr, setDR] = useState(summaryDR ? summaryDR : 0);
 
   useEffect(() => {
     if (armorStack.length > 0) {
@@ -53,16 +55,15 @@ export const CalcForm = ({
     collapseSubject.next();
   };
 
-  // only used for summary DR convenience interaction
-  const [dr, setDR] = useState(summaryDR ? summaryDR : 0);
-
+  // TODO we may want to move this out of this file
   const defaultArmor: Armor = {
     id: idCount,
     order: 0,
     name: 'Armor',
     dr: 0,
+    maxDR: 0,
     ablative: false,
-    ablateBase: 0,
+    ablateBase: 10,
     vulnerabilities: [],
   };
 

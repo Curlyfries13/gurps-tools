@@ -9,24 +9,27 @@ export default function armorReducer(
   action: ArmorActionTypes
 ) {
   switch (action.type) {
-    case actionTypes.CREATE_ARMOR:
+    case actionTypes.CREATE_ARMOR: {
       const armorStack = [...state.armorStack, action.armor];
       return { ...state, armorStack: armorStack };
-    case actionTypes.DELETE_ARMOR:
+    }
+    case actionTypes.DELETE_ARMOR: {
       return {
         ...state,
         armorStack: state.armorStack.filter(
           (armor: Armor) => armor.id !== action.armor.id
         ),
       };
-    case actionTypes.UPDATE_ARMOR:
+    }
+    case actionTypes.UPDATE_ARMOR: {
       return {
         ...state,
         armorStack: state.armorStack.map((armor: Armor) => {
           return armor.id === action.armor.id ? action.armor : armor;
         }),
       };
-    case actionTypes.MOVE_ARMOR:
+    }
+    case actionTypes.MOVE_ARMOR: {
       // TODO: wrap up ensureFounds in try catch blocks
       let pivot: Armor = ensureFound<Armor>(
         state.armorStack.find((armor: Armor) => {
@@ -74,6 +77,21 @@ export default function armorReducer(
           return a.order - b.order;
         });
       return { ...state, armorStack: outState };
+    }
+    case actionTypes.DAMAGE_DR: {
+      const mod = state.armorStack.map((a: Armor) => {
+        if (a.id === action.armor.id) {
+          return {
+            ...a,
+            dr: a.dr - action.value < 0 ? 0 : a.dr - action.value,
+          };
+        } else {
+          return a;
+        }
+      });
+      return { ...state, armorStack: mod };
+    }
+
     default:
       return state;
   }

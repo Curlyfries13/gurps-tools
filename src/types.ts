@@ -3,6 +3,7 @@ export interface Armor {
   order: number;
   name: string;
   dr: number;
+  maxDR: number;
   ablative: boolean;
   ablateBase: number;
   vulnerabilities: Array<Vulnerability>;

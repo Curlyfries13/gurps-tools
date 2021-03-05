@@ -11,6 +11,8 @@ export function removeArmor(armor: Armor): ArmorActionTypes {
 }
 
 export function updateArmor(armor: Armor): ArmorActionTypes {
+  // update Armor AND reset any damage
+  armor.dr = armor.maxDR;
   return { type: actionTypes.UPDATE_ARMOR, armor };
 }
 
@@ -19,4 +21,8 @@ export function moveArmor(
   direction: MoveDirection
 ): ArmorActionTypes {
   return { type: actionTypes.MOVE_ARMOR, direction, armor };
+}
+
+export function damageDR(armor: Armor, damage: number): ArmorActionTypes {
+  return { type: actionTypes.DAMAGE_DR, armor: armor, value: damage };
 }
