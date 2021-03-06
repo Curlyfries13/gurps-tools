@@ -49,6 +49,7 @@ Object {
               >
                 <div>
                   <input
+                    aria-invalid="false"
                     aria-label="current hit points"
                     class="form-control"
                     id="current-hp"
@@ -63,6 +64,7 @@ Object {
                 </p>
                 <div>
                   <input
+                    aria-invalid="false"
                     aria-label="total hit points"
                     class="form-control"
                     id="max-hp"
@@ -288,6 +290,7 @@ Object {
             >
               <div>
                 <input
+                  aria-invalid="false"
                   aria-label="current hit points"
                   class="form-control"
                   id="current-hp"
@@ -302,6 +305,7 @@ Object {
               </p>
               <div>
                 <input
+                  aria-invalid="false"
                   aria-label="total hit points"
                   class="form-control"
                   id="max-hp"

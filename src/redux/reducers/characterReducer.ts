@@ -18,7 +18,7 @@ export default function characterReducer(
         currHp: action.value,
       };
     case actionTypes.RESET_HP:
-      return { ...state, currHp: state.hp, displayCurrHP: state.hp };
+      return { ...state, currHp: state.hp };
     default:
       return state;
   }

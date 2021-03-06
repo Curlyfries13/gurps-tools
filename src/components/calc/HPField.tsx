@@ -11,6 +11,8 @@ const HPField = ({ hp, currHP, updateHP, updateCurrentHP }: Props) => {
   const [currentHP, setCurrentHP]: [string, Function] = useState(
     String(currHP)
   );
+  const [hpError, setHPError]: [string[], Function] = useState([]);
+  const [currHPError, setCurrHPError]: [string[], Function] = useState([]);
 
   useEffect(() => {
     setMaxHP(hp);
@@ -19,10 +21,12 @@ const HPField = ({ hp, currHP, updateHP, updateCurrentHP }: Props) => {
 
   function handleUpdateHP(event: React.ChangeEvent<HTMLInputElement>): void {
     const { name, value } = event.target;
+    validateHP(value);
     if (value && value.match(numberPattern) !== null) {
       const parseVal: number = parseInt(value, 10) || 0;
       updateHP(parseVal);
       updateCurrentHP(parseVal);
+      validateCurrentHP(value);
     }
     setMaxHP(value);
   }
@@ -31,12 +35,67 @@ const HPField = ({ hp, currHP, updateHP, updateCurrentHP }: Props) => {
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     const { name, value } = event.target;
+    validateCurrentHP(value);
     if (value && value.match(numberPattern) !== null) {
       const parseVal: number = parseInt(value, 10) || 0;
       updateCurrentHP(parseVal);
     }
     setCurrentHP(value);
   }
+
+  function validateHP(value: any): void {
+    let errorStack: string[] = [];
+    if (!value || value.match(numberPattern) === null) {
+      errorStack.push('Total HP must be a positive number');
+    } else {
+      const parseVal: number = parseInt(value, 10) || 0;
+      if (parseVal < 1) {
+        errorStack.push('Total HP must be a positive number');
+      }
+    }
+    setHPError(errorStack);
+  }
+
+  function validateCurrentHP(value: any): void {
+    let errorStack: string[] = [];
+    if (!value || value.match(numberPattern) === null) {
+      errorStack.push('Current HP must be a number');
+    }
+    setCurrHPError(errorStack);
+  }
+
+  const renderValidationErrors = () => {
+    return (
+      <>
+        {renderHPError(hpError)}
+        {renderCurrHPError(currHPError)}
+      </>
+    );
+  };
+
+  const renderHPError = (vals: string[] | undefined) => {
+    if (vals && vals.length > 0) {
+      return (
+        <div className='text-danger'>
+          {vals.map((entry: string, index) => {
+            return <small key={index}>{entry}</small>;
+          })}
+        </div>
+      );
+    }
+  };
+
+  const renderCurrHPError = (vals: string[] | undefined) => {
+    if (vals && vals.length > 0) {
+      return (
+        <div className='text-danger'>
+          {vals.map((entry: string, index) => {
+            return <small key={index}>{entry}</small>;
+          })}
+        </div>
+      );
+    }
+  };
 
   // there should only be one of these components: all id's are designated as
   // if this is the case
@@ -53,7 +112,10 @@ const HPField = ({ hp, currHP, updateHP, updateCurrentHP }: Props) => {
           <input
             type='text'
             aria-label='current hit points'
-            className='form-control'
+            aria-invalid={currHPError.length > 0}
+            className={
+              'form-control' + (currHPError.length > 0 ? ' is-invalid' : '')
+            }
             id='current-hp'
             value={currentHP}
             onChange={handleUpdateCurrentHP}
@@ -64,13 +126,17 @@ const HPField = ({ hp, currHP, updateHP, updateCurrentHP }: Props) => {
           <input
             type='text'
             aria-label='total hit points'
-            className='form-control'
+            aria-invalid={hpError.length > 0}
+            className={
+              'form-control' + (hpError.length > 0 ? ' is-invalid' : '')
+            }
             id='max-hp'
             value={maxHP}
             onChange={handleUpdateHP}
           />
         </div>
       </div>
+      {renderValidationErrors()}
     </>
   );
 };
