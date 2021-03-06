@@ -19,9 +19,9 @@ const Log = ({ log }: Props) => {
   if (log.length > 0) {
     return (
       <div className='container p-2 bg-dark overflow-auto mh-100' ref={logRef}>
-        {log.map((entry: string) => {
+        {log.map((entry: string, index) => {
           return (
-            <p key={log.order} className='text-light'>
+            <p key={index} className='text-light'>
               {entry}
             </p>
           );
