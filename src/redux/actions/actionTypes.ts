@@ -7,8 +7,6 @@ export const MOVE_ARMOR = 'MOVE_ARMOR';
 export const UPDATE_DR = 'UPDATE_DR';
 export const DAMAGE_DR = 'DAMAGE_DR';
 
-export const UPDATE_DISPLAY_HP = 'UPDATE_DISPLAY_HP';
-export const UPDATE_DISPLAY_CURR_HP = 'UPDATE_DISPLAY_CURR_HP';
 export const UPDATE_HP = 'UPDATE_HP';
 export const UPDATE_CURR_HP = 'UPDATE_CURR_HP';
 export const DAMAGE_HP = 'DAMAGE_HP';

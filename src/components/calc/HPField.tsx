@@ -1,28 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
-import {
-  updateDisplayHP,
-  updateDisplayCurrHP,
-} from 'src/redux/actions/characterActions';
+import { updateHP, updateCurrentHP } from 'src/redux/actions/characterActions';
 import { RootState } from 'src/redux';
 
-const HPField = ({
-  hp,
-  currHP,
-  updateDisplayHP,
-  updateDisplayCurrHP,
-}: Props) => {
+import { numberPattern } from 'src/utils/jsUtils';
+
+const HPField = ({ hp, currHP, updateHP, updateCurrentHP }: Props) => {
+  const [maxHP, setMaxHP]: [string, Function] = useState(String(hp));
+  const [currentHP, setCurrentHP]: [string, Function] = useState(
+    String(currHP)
+  );
+
+  useEffect(() => {
+    setMaxHP(hp);
+    setCurrentHP(currHP);
+  }, [hp, currHP]);
+
   function handleUpdateHP(event: React.ChangeEvent<HTMLInputElement>): void {
-    const { value } = event.target;
-    updateDisplayHP(value);
+    const { name, value } = event.target;
+    if (value && value.match(numberPattern) !== null) {
+      const parseVal: number = parseInt(value, 10) || 0;
+      updateHP(parseVal);
+      updateCurrentHP(parseVal);
+    }
+    setMaxHP(value);
   }
 
   function handleUpdateCurrentHP(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    const { value } = event.target;
-    updateDisplayCurrHP(value);
+    const { name, value } = event.target;
+    if (value && value.match(numberPattern) !== null) {
+      const parseVal: number = parseInt(value, 10) || 0;
+      updateCurrentHP(parseVal);
+    }
+    setCurrentHP(value);
   }
 
   // there should only be one of these components: all id's are designated as
@@ -42,7 +55,7 @@ const HPField = ({
             aria-label='current hit points'
             className='form-control'
             id='current-hp'
-            value={currHP}
+            value={currentHP}
             onChange={handleUpdateCurrentHP}
           />
         </div>
@@ -53,7 +66,7 @@ const HPField = ({
             aria-label='total hit points'
             className='form-control'
             id='max-hp'
-            value={hp}
+            value={maxHP}
             onChange={handleUpdateHP}
           />
         </div>
@@ -70,8 +83,8 @@ function mapStateToProps(state: RootState) {
 }
 
 const mapDispatchToProps = {
-  updateDisplayHP,
-  updateDisplayCurrHP,
+  updateHP,
+  updateCurrentHP,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
