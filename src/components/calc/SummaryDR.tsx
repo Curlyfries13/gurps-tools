@@ -2,44 +2,74 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { RootState } from 'src/redux';
 
+import { numberPattern } from 'src/utils/jsUtils';
 import TextInput from '../common/TextInput';
 
 const SummaryDR = ({ propDR, setPropDR, armorStack }) => {
   const [isActive, setActive] = useState(armorStack.length === 0);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors]: [string[], Function] = useState([]);
+  const [summaryDR, setSummaryDR]: [string, Function] = useState(propDR);
 
   useEffect(() => {
     setActive(armorStack.length === 0);
   }, [armorStack]);
 
-  function handleUpdateSummaryDR(event) {
+  useEffect(() => {
+    setSummaryDR(propDR);
+  }, [propDR]);
+
+  function handleUpdateSummaryDR(event: React.ChangeEvent<HTMLInputElement>) {
     event.preventDefault();
-    if (isActive) {
-      armorIsValid(propDR);
-      const value = parseInt(event.target.value, 10) || 0;
-      setPropDR(value);
+    const { value } = event.target;
+    const valid = validateDR(value);
+    setSummaryDR(value);
+    if (isActive && valid) {
+      const parseValue = parseInt(value, 10) || 0;
+      setPropDR(parseValue);
     }
   }
 
-  function armorIsValid(dr) {
-    const errors = {};
-    if (dr >= 0) errors.dr = 'DR must be a non-negative value';
-
-    setErrors(errors);
+  function validateDR(dr: string): boolean {
+    const errorStack: string[] = [];
+    const parseValue = parseInt(dr, 10);
+    if (dr.match(numberPattern) === null || parseValue < 0) {
+      errorStack.push('DR must be a non-negative value');
+    }
+    setErrors(errorStack);
     return Object.keys(errors).length === 0;
   }
 
+  const renderValidationErrors = (vals: string[] | undefined) => {
+    if (vals && vals.length > 0) {
+      return (
+        <div className='text-danger'>
+          {vals.map((entry: string, index) => {
+            return <small key={index}>{entry}</small>;
+          })}
+        </div>
+      );
+    }
+  };
+
   return (
-    <TextInput
-      name='DR'
-      id='DR-sum'
-      label='DR'
-      labelClass='d-flex justify-content-center'
-      accLabel='Summary Damage Resistence'
-      active={isActive}
-      value={propDR}
-      onChange={handleUpdateSummaryDR}
-    />
+    <>
+      <label
+        htmlFor='DR-sum'
+        className='col col-form-label d-flex justify-content-center'
+      >
+        DR
+      </label>
+      <input
+        type='text'
+        aria-label='Summary Damage Resistence'
+        className='form-control'
+        id='DR-sum'
+        readOnly={!isActive}
+        value={summaryDR}
+        onChange={handleUpdateSummaryDR}
+      />
+      {renderValidationErrors(errors)}
+    </>
   );
 };
 
