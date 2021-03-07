@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Header from './common/Header';
 import AboutPage from './about/About';
 import CalcForm from './calc/CalcForm';
+import HomePage from './home/Home';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <Header />
       <div className='container'>
         <Switch>
-          <Route path='/' component={AboutPage} exact />
+          <Route path='/' component={HomePage} exact />
           <Route path='/calc' component={CalcForm} />
           <Route path='/about' component={AboutPage} />
         </Switch>
