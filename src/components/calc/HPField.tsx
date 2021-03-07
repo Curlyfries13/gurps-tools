@@ -67,25 +67,13 @@ const HPField = ({ hp, currHP, updateHP, updateCurrentHP }: Props) => {
   const renderValidationErrors = () => {
     return (
       <>
-        {renderHPError(hpError)}
-        {renderCurrHPError(currHPError)}
+        {renderErrors(hpError)}
+        {renderErrors(currHPError)}
       </>
     );
   };
 
-  const renderHPError = (vals: string[] | undefined) => {
-    if (vals && vals.length > 0) {
-      return (
-        <div className='text-danger'>
-          {vals.map((entry: string, index) => {
-            return <small key={index}>{entry}</small>;
-          })}
-        </div>
-      );
-    }
-  };
-
-  const renderCurrHPError = (vals: string[] | undefined) => {
+  const renderErrors = (vals: string[] | undefined) => {
     if (vals && vals.length > 0) {
       return (
         <div className='text-danger'>

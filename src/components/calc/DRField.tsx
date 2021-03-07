@@ -9,11 +9,12 @@ import { ensureFound, numberPattern } from 'src/utils/jsUtils';
 import TextInput from '../common/TextInput';
 
 const DRField = ({ armorId, armor, updateArmor }: Props) => {
-  const [errors, setErrors]: [any, Function] = useState({});
   const [maxDR, setMaxDR]: [string, Function] = useState(String(armor.maxDR));
   const [currentDR, setCurrentDR]: [string, Function] = useState(
     String(armor.dr)
   );
+  const [maxDRErrors, setMaxDRErrors]: [string[], Function] = useState([]);
+  const [currDRErrors, setCurrDRErrors]: [string[], Function] = useState([]);
 
   useEffect(() => {
     setMaxDR(armor.maxDR);
@@ -24,11 +25,14 @@ const DRField = ({ armorId, armor, updateArmor }: Props) => {
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     const { name, value } = event.target;
+    validateMaxDR(value);
     if (value && value.match(numberPattern) !== null) {
       const maxDR: number = parseInt(value, 10) || 0;
       const updatedArmor: Armor = { ...armor, maxDR: maxDR };
       updateArmor(updatedArmor);
       setCurrentDR(value);
+      // reset currDR validation
+      validateCurrDR(value);
     }
     setMaxDR(value);
   }
@@ -37,6 +41,7 @@ const DRField = ({ armorId, armor, updateArmor }: Props) => {
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     const { name, value } = event.target;
+    validateCurrDR(value);
     if (value && value.match(numberPattern) !== null) {
       const dr: number = parseInt(value, 10) || 0;
       const updatedArmor: Armor = { ...armor, dr };
@@ -45,13 +50,50 @@ const DRField = ({ armorId, armor, updateArmor }: Props) => {
     setCurrentDR(value);
   }
 
-  // TODO: wire up vlaidation
-  function armorIsValid(armor: Armor) {
-    const errors: any = {};
-    if (!(armor.dr >= 0)) errors.dr = 'DR must be a non-negative value';
-    setErrors(errors);
-    return Object.keys(errors).length === 0;
+  function validateMaxDR(value: string): void {
+    let errorStack: string[] = [];
+    if (
+      !value ||
+      value.match(numberPattern) === null ||
+      parseInt(value, 10) < 0
+    ) {
+      errorStack.push('DR must be a non-negative number');
+    }
+    setMaxDRErrors(errorStack);
   }
+
+  function validateCurrDR(value: string): void {
+    let errorStack: string[] = [];
+    if (
+      !value ||
+      value.match(numberPattern) === null ||
+      parseInt(value, 10) < 0
+    ) {
+      errorStack.push('Current DR must be a non-negative number');
+    }
+    setCurrDRErrors(errorStack);
+  }
+
+  const renderValidationErrors = () => {
+    return (
+      <>
+        {renderErrors(maxDRErrors)}
+        {renderErrors(currDRErrors)}
+      </>
+    );
+  };
+
+  const renderErrors = (vals: string[] | undefined) => {
+    if (vals && vals.length > 0) {
+      return (
+        <div className='text-danger'>
+          {vals.map((entry: string, index) => {
+            return <small key={index}>{entry}</small>;
+          })}
+        </div>
+      );
+    }
+  };
 
   // TODO: update accessibility label to update with
   return (
@@ -88,6 +130,7 @@ const DRField = ({ armorId, armor, updateArmor }: Props) => {
           accLabel='Max Damage Resistence'
         />
       )}
+      {renderValidationErrors()}
     </>
   );
 };

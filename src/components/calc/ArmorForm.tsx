@@ -60,10 +60,6 @@ const ArmorForm = ({
 
   const switchId = armor.id + '-ablative';
 
-  const CollapseInner = () => {
-    return <></>;
-  };
-
   return (
     <div
       className='container mb-2 card card-body'

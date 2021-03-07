@@ -20,7 +20,7 @@ it('displays an error message on invalid DR', async () => {
   const component: RenderResult = render(<DRField armorId={0} />, {
     initialState: mockState,
   });
-  fireEvent.change(screen.getByLabelText(/Summary Damage Resistence/i), {
+  fireEvent.change(screen.getByLabelText(/Max Damage Resistence/i), {
     target: { value: 'a' },
   });
   const test = await screen.findByText(/DR must be a non-negative value/);
