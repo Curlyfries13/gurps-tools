@@ -1,3 +1,4 @@
 # remove build artifacts
 build/
 node_modules/
+.firebase/
