@@ -1,3 +1,8 @@
+// GURPS Tools is a collection of game aids for the GURPS system by Steve
+// Jackson Games
+// Copyright (C) 2021  Jon Yocky
+// see LISCENSE for details
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
@@ -16,7 +21,6 @@ ReactDOM.render(
         <App />
       </Provider>
     </BrowserRouter>
-  </React.StrictMode>
-  ,
+  </React.StrictMode>,
   document.getElementById('app')
 );

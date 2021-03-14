@@ -52,9 +52,12 @@ and open-source, so support is going to be limited to my human capabilities. The
 code is maintained on GitHub so if you run into a problem you have several
 options:
 
-[//]: # (TODO: update contact info and put it in a config file)
 1. email me [yocky@gurpstools.com](mailto:yocky@gurpstools.com)
 2. Submit an issue on GitHub
-3. Fix it yourself, and submit a PR (if you're ambitious)`;
+3. Fix it yourself, and submit a PR (if you're ambitious)
+
+# Source Code
+The source code is available on GitHub [here](https://github.com/Curlyfries13/gurps-tools). This tool is free and open source.
+`;
 
 export default text;
