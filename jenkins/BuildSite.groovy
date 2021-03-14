@@ -13,7 +13,7 @@ pipeline {
   agent any
   parameters{
     string(name: 'branch', defaultValue: 'master')
-    string(name: 'git_credentials')
+    string(name: 'gitCredentials')
   }
 
   options {
@@ -46,7 +46,7 @@ pipeline {
               trackingSubmodules: true]
            ],
            userRemoteConfigs: [
-             [credentialsId: params.git_credentials,
+             [credentialsId: params.gitCredentials,
              url: "git@github.com:Curlyfries13/gurps-tools.git"]
            ]]
         )

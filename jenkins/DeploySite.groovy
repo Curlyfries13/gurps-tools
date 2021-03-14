@@ -1,7 +1,7 @@
 pipeline {
   agent any
   parameters{
-    string(name: 'firebase_token')
+    string(name: 'firebaseToken')
   }
 
   options {
@@ -11,12 +11,13 @@ pipeline {
   stages{
     stage("retrieve") {
       steps {
+        echo "${params.firebaseToken}"
         copyArtifacts projectName: 'build-gurps-tools', selector: upstream(fallbackToLastSuccessful: true, parameters: 'branch=master')
       }
     }
     stage("deploy") {
       environment {
-        FIREBASE_TOKEN = credentials(params.firebase_token)
+        FIREBASE_TOKEN = credentials("$params.firebaseToken")
       }
       steps {
         nodejs(nodeJSInstallationName: '15.11.0') {
