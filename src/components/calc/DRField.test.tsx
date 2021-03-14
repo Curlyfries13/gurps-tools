@@ -23,6 +23,10 @@ it('displays an error message on invalid DR', async () => {
   fireEvent.change(screen.getByLabelText(/Max Damage Resistence/i), {
     target: { value: 'a' },
   });
-  const test = await screen.findByText(/DR must be a non-negative value/);
+  const test = await screen.findByText(
+    /DR must be a non-negative number/i,
+    {},
+    { timeout: 1500 }
+  );
   expect(test).not.toBe(null);
 });
