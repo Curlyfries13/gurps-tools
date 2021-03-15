@@ -13,7 +13,7 @@ pipeline {
   agent any
   parameters{
     string(name: 'branch', defaultValue: 'master')
-    string(name: 'gitCredentials')
+    // required params: gitCredentials
   }
 
   options {

@@ -17,8 +17,7 @@ pipeline {
   }
   parameters{
     string(name: 'branch', defaultValue: 'master')
-    string(name: 'gitCredentials')
-    string(name: 'firebaseToken')
+    // required params: gitCredentials, firebaseToken
   }
   environment {
     res = false;
@@ -29,7 +28,7 @@ pipeline {
         script {
           build job: 'build-gurps-tools', parameters:[
             string(name: 'branch', value: params.branch),
-            string(name: 'gitCredentials' value: params.gitCredentials)
+            string(name: 'gitCredentials', value: params.gitCredentials)
           ]
           build job: 'deploy-gurps-tools', parameters:[
             string(name:'firebaseToken', value: params.firebaseToken)

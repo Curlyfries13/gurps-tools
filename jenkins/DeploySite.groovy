@@ -1,8 +1,6 @@
 pipeline {
   agent any
-  parameters{
-    string(name: 'firebaseToken')
-  }
+  // required param: firebaseToken
 
   options {
     timeout(time: 15, unit: "MINUTES")
